@@ -1,3 +1,22 @@
+
+# =========[GENERAL]===========
+# Media files
+*.png
+*.jpg
+
+
+# =========[PYTHON]===========
+# Serialized files (pickle module)
+*.pkl
+
+*.pyc
+/__pycache-
+
+# Notebooks
+*.ipynb
+
+
+# =========[JAVA]=============
 # Compiled class file
 *.class
 
