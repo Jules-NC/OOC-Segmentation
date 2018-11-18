@@ -1,5 +1,6 @@
  class Block:
-  def __init__(self, pixel_ini =(0, 0), pixel_end = (0, 0)):
+  def __init__(self, block_index = 0, pixel_ini =(0, 0), pixel_end = (0, 0)):
+    self.block_index = block_index
     self.pixel_ini.x = pixel_ini[0]
     self.pixel_ini.y = pixel_ini[1]
     self.pixel_end.x = pixel_end[0]
@@ -22,7 +23,10 @@
 
     #define QBT
     self.block_tree = do_QBT(self.block_graph, imsize)
-
+  #return the index of the block
+  # don't know if this is necessary
+  def blockIndex(self)
+   return self.block_index
   def boundaryOf(leaf = (0, 0)):
     # return the boundary tree of this pixel/leaf
     self.boundary = None
