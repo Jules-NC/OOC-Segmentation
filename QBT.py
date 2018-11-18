@@ -1,12 +1,13 @@
-from Tree import Node
+from Tree import *
 from Image import *
+
 
 def generate_leafs(boundary, IMSIZE):
     return [Node(name=int_refchange(i, IMSIZE, boundary), altitude=0) for i in index(boundary)]
 
 
 def index(bound):
-    img_len = bound_to_imglen(bound)
+    img_len = boundary_to_image_size(bound)
     for i in range(img_len.len_x * img_len.len_y):
         yield i
 
@@ -32,19 +33,18 @@ def do_QBT(graph, IMSIZE):
         nodes[edge[0]].root().parent = nodes[-1]
         nodes[edge[1]].root().parent = nodes[-1]
     # print("--------------------")
-
-    return nodes
-
+    res = Tree(nodes)
+    return res
 
 def refchange(node, IMSIZE, boundary):
-    x1, y1 = coords_change(int(node.name), bound_to_imglen(boundary))
+    x1, y1 = coords_change(int(node.name), boundary_to_image_size(boundary))
     x1 += boundary.x1
     y1 += boundary.y1
     node.name = y1 * IMSIZE.len_x + x1
 
 
 def int_refchange(int_name, IMSIZE, boundary):
-    x1, y1 = coords_change(int(int_name), bound_to_imglen(boundary))
+    x1, y1 = coords_change(int(int_name), boundary_to_image_size(boundary))
     x1 += boundary.x1
     y1 += boundary.y1
     return y1 * IMSIZE.len_x + x1

@@ -33,8 +33,8 @@ def hierarchy_pos(G, root, width=1., vert_gap=0.2, vert_loc=0, xcenter=0.5,
     return pos
 
 
-def write_QBT(node_list, figsize=(10, 5)):
-    listofedges = [(node.name, node.parent.name) for node in node_list if node.parent is not None]
+def write_QBT(tree, figsize=(10, 5)):
+    listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     lignes = [[node[0], node[1]] for i, node in enumerate(listofedges)]
 
     with open('graphe.csv', 'w') as csvFile:
@@ -45,9 +45,9 @@ def write_QBT(node_list, figsize=(10, 5)):
             writer.writerow(ligne)
 
 
-def print_QBT(node_list, figsize=(10, 5)):
+def print_qbt(tree, figsize=(10, 5)):
     G = nx.Graph()
-    listofedges = [(node.name, node.parent.name) for node in node_list if node.parent is not None]
+    listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     G.add_edges_from(listofedges)
     pos = hierarchy_pos(G, listofedges[-1][1])
     plt.figure(1, figsize=figsize)
@@ -55,9 +55,9 @@ def print_QBT(node_list, figsize=(10, 5)):
     plt.show()
 
 
-def print_QBT2(node_list, figsize=(10, 5)):
+def print_qbt_2(tree, figsize=(10, 5)):
     G = nx.Graph()
-    listofedges = [(node.name, node.parent.name) for node in node_list if node.parent is not None]
+    listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     G.add_edges_from(listofedges)
     pos = hierarchy_pos(G, listofedges[-1][1], width=2 * math.pi, xcenter=0)
     new_pos = {u: (r * math.cos(theta), r * math.sin(theta)) for u, (theta, r) in pos.items()}
@@ -67,9 +67,9 @@ def print_QBT2(node_list, figsize=(10, 5)):
     plt.show()
 
 
-def print_QBTN(node_list, figsize=(10, 5)):
+def print_qbt_raw(tree, figsize=(10, 5)):
     G = nx.Graph()
-    listofedges = [(node.name, node.parent.name) for node in node_list if node.parent is not None]
+    listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     G.add_edges_from(listofedges)
     plt.figure(1, figsize=figsize)
     nx.draw(G, with_labels=True)

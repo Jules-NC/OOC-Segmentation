@@ -1,3 +1,12 @@
+class Tree:
+    def __init__(self, list_of_nodes):
+        self.nodes = list_of_nodes
+        self.root = self.nodes[-1]
+
+    def height(self):
+        return self.root.rec_height(0)
+
+
 class Node:
     def __init__(self, name="!", altitude=-1, parent=None, childs=(None, None)):
         self.parent = parent
@@ -5,21 +14,26 @@ class Node:
         self.name = name
         self.altitude = altitude
 
+    def left(self):
+        return self.childs[0]
+
+    def right(self):
+        return self.childs[1]
+
     def leaf(self):
         return self.childs[0] is None and self.childs[1] is None
 
-    def height(self):
-        return self.root().rec_root(0)
-
-    def rec_root(self, i):
-        if self.parent is None:
-            return i
-        return self.parent.rec_root(i + 1)
-
-    def max_height(self):
+    def rec_height(self, i):
         if self.leaf():
-            return 1
-        return max(self.childs[0].max_height(), self.childs[1].max_height()) + 1
+            return i
+        ch1 = None
+        ch2 = None
+        if self.left() is not None:
+            ch1 = self.left().rec_height(i)
+        if self.right() is not None:
+            ch2 = self.right().rec_height(i)
+
+        return max(ch1, ch2) + 1
 
     def set_childs(self, child1=None, child2=None):
         self.childs = list(self.childs)

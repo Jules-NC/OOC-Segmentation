@@ -21,10 +21,10 @@ class Graph:
         self.it_size = len(edges)
         self.n_vertices = n_vertices  # nbr of vertices
         self.boundary = boundary
-        self.im_size = bound_to_imglen(self.boundary)
+        self.im_size = boundary_to_image_size(self.boundary)
 
         # Nombre de vertices compaptible avec le boundary
-        a = bound_to_imglen(self.boundary)
+        a = boundary_to_image_size(self.boundary)
         assert a.len_x * a.len_y == n_vertices, "Incompatible boundaries"
 
         # Sort directly after being created to not do this in the main code, because we don't want to modify a Graph.
