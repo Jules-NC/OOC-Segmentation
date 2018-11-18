@@ -1,24 +1,60 @@
-def findCanonical(Parent, i):  # Pas de path compression
-    p = Parent[i]
-    if p == -1: return i
-    cx = findCanonical(Parent, Parent[i])
-    return cx
+from Tree import Node
+from Image import *
+
+def generate_leafs(boundary, IMSIZE):
+    return [Node(name=int_refchange(i, IMSIZE, boundary), altitude=0) for i in index(boundary)]
 
 
-def union(Parent, cx, cy):  # cx<-cy <=> y devient le fils de x
-    Parent[cy] = cx
+def index(bound):
+    img_len = bound_to_imglen(bound)
+    for i in range(img_len.len_x * img_len.len_y):
+        yield i
 
 
-def doQBT(lV, E):
-    QBT = [-1 for i in range(lV * 2 - 1)]  # |V|-2 éléments
-    size = lV  # Tout avant est un sommet => singleton
-    for edge in E:
-        child1 = edge[0]
-        child2 = edge[1]
-        c1 = findCanonical(QBT, child1)
-        c2 = findCanonical(QBT, child2)
-        if (c1 == c2): continue
-        QBT[c1] = size
-        QBT[c2] = size
-        size += 1
-    return QBT
+def do_QBT(graph, IMSIZE):
+    graph.sort()
+    nodes = generate_leafs(graph.boundary, IMSIZE)
+    # [refchange(nodes[i], IMSIZE, graph.boundary) for i in range(len(nodes))]
+
+    for i, edge in enumerate(graph):
+        e1 = int_refchange(edge[0], IMSIZE, graph.boundary)
+        e2 = int_refchange(edge[1], IMSIZE, graph.boundary)
+
+        # print(edge[0], edge[1])
+        # print(e1, e2)
+        # print()
+        if (nodes[edge[0]].root() is nodes[edge[1]].root()):
+            continue
+
+        nodes.append(Node(name=(e1, e2),
+                          altitude=graph.weights[i],
+                          childs=(nodes[edge[0]].root(), nodes[edge[1]].root())))
+        nodes[edge[0]].root().parent = nodes[-1]
+        nodes[edge[1]].root().parent = nodes[-1]
+    # print("--------------------")
+
+    return nodes
+
+
+def refchange(node, IMSIZE, boundary):
+    x1, y1 = coords_change(int(node.name), bound_to_imglen(boundary))
+    x1 += boundary.x1
+    y1 += boundary.y1
+    node.name = y1 * IMSIZE.len_x + x1
+
+
+def int_refchange(int_name, IMSIZE, boundary):
+    x1, y1 = coords_change(int(int_name), bound_to_imglen(boundary))
+    x1 += boundary.x1
+    y1 += boundary.y1
+    return y1 * IMSIZE.len_x + x1
+
+
+def coords_change(i, imsize):
+    y = i // imsize.len_y
+    x = i % imsize.len_x
+    return (x, y)
+
+
+def merge(nodes1, nodes2, edge):
+    pass

@@ -3,18 +3,21 @@
 # Media files
 *.png
 *.jpg
+*.csv
 
+# =========[DIRECTORIES]======
+*.Data/
 
 # =========[PYTHON]===========
 # Serialized files (pickle module)
 *.pkl
 
 *.pyc
-/__pycache-
+/__pycache__/*
 
 # Notebooks
 *.ipynb
-
+*.idea/
 
 # =========[JAVA]=============
 # Compiled class file
