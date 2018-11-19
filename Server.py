@@ -10,6 +10,8 @@ class Server:
 
         self.subtree_1 = self.bloc_1.get_subtree(edge[0])
         self.subtree_2 = self.bloc_2.get_subtree(edge[1])
+        
+        self.tree = self.subtree_1.nodes.append(self.subtree_2.nodes)
 
         self.selector_node_b1 = self.subtree_1.nodes[0].parent
         self.selector_node_b2 = self.subtree_2.nodes[0].parent
@@ -22,6 +24,7 @@ class Server:
 
         self.current_node = None
         self.can_continue = True
+        
 
     def compute(self):
         print("Selectors :", self.selector_name_b1, self.selector_name_b2)
