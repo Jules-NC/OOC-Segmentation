@@ -6,6 +6,20 @@ class Tree:
     def height(self):
         return self.root.rec_height(0)
 
+    def subtree(self, leaf_name):
+        res = None
+        for node in self.nodes:  # TODO: actually O(n). Want O(1) for the search part
+            if node.name == leaf_name:
+                res = node.subtree([])
+        assert res is not None, "leaf not found"
+        return Tree(res)
+
+    def __str__(self):
+        res = ""
+        for node in self.nodes:
+            res += str(node) + "\n"
+        return res
+
 
 class Node:
     def __init__(self, name="!", altitude=-1, parent=None, childs=(None, None)):
@@ -32,7 +46,6 @@ class Node:
             ch1 = self.left().rec_height(i)
         if self.right() is not None:
             ch2 = self.right().rec_height(i)
-
         return max(ch1, ch2) + 1
 
     def set_childs(self, child1=None, child2=None):
@@ -54,8 +67,13 @@ class Node:
             return self
         return self.parent.root()
 
+    def subtree(self, list):
+        if self.parent is None:
+            return list
+        list.append(self)
+        return self.parent.subtree(list)
+
     def __eq__(self, other):
-        # return self.name == other.name
         return self == other
 
     def is_(self, other):

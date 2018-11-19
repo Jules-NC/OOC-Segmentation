@@ -45,17 +45,38 @@ def write_QBT(tree, figsize=(10, 5)):
             writer.writerow(ligne)
 
 
-def print_qbt(tree, figsize=(10, 5)):
+def print_tree(tree, figsize=(10, 5)):
     G = nx.Graph()
     listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     G.add_edges_from(listofedges)
     pos = hierarchy_pos(G, listofedges[-1][1])
-    plt.figure(1, figsize=figsize)
+    plt.figure(figsize=figsize)
     nx.draw(G, pos=pos, with_labels=True)
     plt.show()
 
 
-def print_qbt_2(tree, figsize=(10, 5)):
+def print_three_trees(trees, figsize=(10, 5)):
+    plt.figure(figsize=figsize)
+    for i, tree in enumerate(trees):
+        G = nx.Graph()
+        listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
+        G.add_edges_from(listofedges)
+        pos = hierarchy_pos(G, listofedges[-1][1])
+        if i == 0:
+            plt.subplot(2,2,1)
+            plt.title("Subtree of Bloc 1")
+        elif i == 1:
+            plt.subplot(2,2,2)
+            plt.title("Subtree of Bloc 2")
+        elif i == 2:
+            plt.subplot(2,2,3)
+            plt.title("Final tree 'W'")
+        nx.draw(G, pos=pos, with_labels=True)
+    plt.savefig('Data/graphe_résumé.jpg')
+    plt.show()
+
+
+def print_tree_spherical(tree, figsize=(10, 5)):
     G = nx.Graph()
     listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     G.add_edges_from(listofedges)
@@ -67,10 +88,19 @@ def print_qbt_2(tree, figsize=(10, 5)):
     plt.show()
 
 
-def print_qbt_raw(tree, figsize=(10, 5)):
+def print_tree_raw(tree, figsize=(10, 5)):
     G = nx.Graph()
     listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     G.add_edges_from(listofedges)
     plt.figure(1, figsize=figsize)
     nx.draw(G, with_labels=True)
+    plt.show()
+
+
+def print_graph(graph):
+    G = nx.Graph()
+    for i, edge in enumerate(graph.edges):
+        G.add_edge(*(edge[0], edge[1]))
+    nx.draw(G, with_labels=True)
+    plt.savefig("graph.png")
     plt.show()
