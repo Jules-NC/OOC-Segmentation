@@ -1,113 +1,91 @@
 from Tree import *
 
+
 class Server:
     def __init__(self, bloc_1, bloc_2, edge, edge_altitude):
-        self.bloc_1 = bloc_1
-        self.bloc_2 = bloc_2
 
         self.edge = edge
         self.edge_altitude = edge_altitude
 
-        self.subtree_1 = self.bloc_1.get_subtree(edge[0])
-        self.subtree_2 = self.bloc_2.get_subtree(edge[1])
-        
-        self.tree = self.subtree_1.nodes.append(self.subtree_2.nodes)
+        self.subtree_1 = bloc_1.get_subtree(edge[0])
+        self.subtree_2 = bloc_2.get_subtree(edge[1])
 
-        self.selector_node_b1 = self.subtree_1.nodes[0].parent
-        self.selector_node_b2 = self.subtree_2.nodes[0].parent
+        self.selector_1_down = self.subtree_1.nodes[0]
+        self.selector_2_down = self.subtree_2.nodes[0]
 
-        self.selector_name_b1 = self.selector_node_b1.name
-        self.selector_name_b2 = self.selector_node_b2.name
-
-        self.selector_alt_b1 = self.selector_node_b1.altitude
-        self.selector_alt_b2 = self.selector_node_b2.altitude
+        self.selector_1_up = self.selector_1_down.parent
+        self.selector_2_up = self.selector_2_down.parent
 
         self.current_node = None
-        self.can_continue = True
-        
+        self.node_created = False
 
     def compute(self):
-        print("Selectors :", self.selector_name_b1, self.selector_name_b2)
-        print("Alts sels :", self.selector_alt_b1, self.selector_alt_b2)
+        while self.selector_1_up is not self.selector_2_up:
+            # If the node is not created
+            if self.node_created is False:
+                self.update_selector_1()
+                self.update_selector_2()
+                # If both selectors are roots of they respective trees, we create the node
+                if self.selector_1_up.parent is None and self.selector_2_up is None:
+                    self.create_node()
+                # If the altitude of both selectors up are higher than the altitude of the edge to merge
+                if self.selector_1_up.altitude > self.edge_altitude and self.selector_2_up > self.edge_altitude:
+                    self.create_node()
 
-        while self.can_continue:
-            if self.current_node is not None:
-                if self.current_node.parent is None:
-                    self.can_continue = False
-                    print("COND1")
-                    continue
+            # When the node was created
+            if self.node_created is True:
+                self.current_node.parent = self.max_selectors_up()
+                self.current_node = self.max_selectors_up()
+                self.update_selector_1()
+                self.update_selector_2()
+                self.update_machins()
 
-            if self.can_create_new_node():
-                print("CREATION D'UNE NODE")
-                self.current_node = self.new_node()
-                print("ST-1")
-                print(self.subtree_1)
-                print("ST-2")
-                print(self.subtree_2)
+    def update_selector_1(self):
+        # If the altitude of the selector up is higher than the altitude of the edge, we increment the selector
+        if self.selector_1_up.altitude > self.edge_altitude:
+            self.selector_1_down = self.selector_1_up
+            if self.selector_1_up.parent is not None:
+                self.selector_1_up = self.selector_1_up.parent
 
-            if self.current_node is None:
-                print("PAS DE NODE CREE, ON ITERE")
-                print("ST-1")
-                print(self.subtree_1)
-                print("ST-2")
-                print(self.subtree_2)
-                pass
+    def update_selector_2(self):
+        if self.selector_2_up.altitude > self.edge_altitude:
+            self.selector_2_down = self.selector_2_up
+            if self.selector_2_up.parent is not None:
+                self.selector_2_up = self.selector_2_up.parent
 
-            if self.current_node is not None:
-                print("ON LINK LA NODE")
-                self.relink()
-                print("ST-1")
-                print(self.subtree_1)
-                print("ST-2")
-                print(self.subtree_2)
-            print("========================")
-            self.increase_selectors()
+    def create_node(self):
+        # STEP 1) Create the node and link the node to his parent and to his childs
+        self.current_node = Node(name="LOLOLOLOL",
+                                 altitude=self.edge_altitude,
+                                 parent=self.max_selectors_up(),
+                                 childs=(self.selector_1_down,self.selector_2_down))
+        self.update_machins()
 
-    def can_create_new_node(self):
-        return self.selector_alt_b1 == self.edge_altitude or self.selector_alt_b2 == self.edge_altitude and self.current_node is None
+    def update_machins(self):
+        # STEP 2) Delete the remainings links from the selectors
+        self.selector_1_down.parent = self.current_node
+        self.selector_2_down.parent = self.current_node
 
-    def new_node(self):
-        new_node = Node(name=(self.selector_name_b1, self.selector_name_b2),
-                        altitude=self.edge_altitude,
-                        childs=(self.selector_node_b1, self.selector_node_b2))
-        if self.selector_node_b1 is not None:
-            self.selector_node_b1.parent = new_node
-        if self.selector_node_b2 is not None:
-            self.selector_node_b2.parent = new_node
-        self.node_not_created = False
-        return new_node
+        self.selector_1_up.delete_child(self.selector_1_down)
+        self.selector_2_up.delete_child(self.selector_2_down)
 
-    def relink(self):
-        self.current_node.father = self.max_fathers()
-        self.current_node = self.max_fathers()
+        self.node_created = True
+        self.current_node = self.current_node.parent
 
-    def increase_selectors(self):
-        if self.selector_node_b1.parent is not None:
-            self.selector_node_b1 = self.selector_node_b1.parent
-            self.selector_name_b1 = self.selector_node_b1.name
-            self.selector_alt_b1 = self.selector_node_b1.altitude
+        if self.selector_1_up is self.current_node:
+            self.update_selector_1()
+        elif self.selector_2_up is self.current_node:
+            self.update_selector_2()
         else:
-            self.selector_node_b1 = None
-            self.selector_name_b1 = None
-            self.selector_alt_b1 = None
+            print("GROSSE ERREUR CA VA PAS IT S DOESN'T GOOD AT ALL")
 
-
-        if self.selector_node_b2.parent is not None:
-            self.selector_node_b2 = self.selector_node_b2.parent
-            self.selector_name_b2 = self.selector_node_b2.name
-            self.selector_alt_b2 = self.selector_node_b2.altitude
-        else:
-            self.selector_node_b2 = None
-            self.selector_name_b2 = None
-            self.selector_alt_b2 = None
-
-    def max_fathers(self):
-        if self.selector_node_b1 is None and self.selector_node_b2 is not None:
-            return self.selector_node_b2
-        elif self.selector_node_b1 is not None and self.selector_node_b2 is None:
-            return self.selector_node_b1
-        elif self.selector_node_b2 is None and self.selector_node_b1 is None:
+    def max_selectors_up(self):
+        # If both are root => root is the next selector
+        if self.selector_1_up.is_root() and self.selector_2_up.is_root():
             return None
-        elif self.selector_alt_b1 > self.selector_alt_b2:
-            return self.selector_node_b1
-        return self.selector_node_b2
+
+        if self.selector_1_up.altitude > self.selector_2_up.altitude:
+            return self.selector_2_up
+        else:
+            return self.selector_1_up
+

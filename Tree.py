@@ -110,11 +110,28 @@ class Node:
             self.childs[1] = node
         self.childs = tuple(self.childs)
 
+    def delete_child(self, node):
+        # TODO : doc
+        # TODO : test
+
+        self.childs = list(self.childs)
+        if self.childs[0] is node:
+            self.childs[0] = None
+        elif self.childs[1] is node:
+            self.childs[1] = None
+        self.childs = tuple(self.childs)
+
     def root(self):
         """Recursively return the root of the Node self"""
         if self.parent is None:
             return self
         return self.parent.root()
+
+    def is_root(self):
+        if self.parent is None:
+            return True
+        else:
+            return False
 
     def subtree(self, list):
         """Recursively add the parent of self to a list list_ => subtree"""

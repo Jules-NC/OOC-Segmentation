@@ -52,6 +52,8 @@ def print_tree(tree, figsize=(10, 5)):
     pos = hierarchy_pos(G, listofedges[-1][1])
     plt.figure(figsize=figsize)
     nx.draw(G, pos=pos, with_labels=True)
+    plt.savefig("Data/bt.png")
+
     plt.show()
 
 
@@ -94,6 +96,8 @@ def print_tree_raw(tree, figsize=(10, 5)):
     G.add_edges_from(listofedges)
     plt.figure(1, figsize=figsize)
     nx.draw(G, with_labels=True)
+    plt.savefig("Data/bt.png")
+
     plt.show()
 
 
