@@ -35,19 +35,24 @@ class Server:
             # When the node was created
             if self.node_created is True:
                 self.current_node.parent = self.max_selectors_up()
-                self.current_node = self.max_selectors_up()
+                if self.current_node.parent is not None:
+                    self.current_node = self.current_node.parent
+                self.edge_altitude = self.current_node.altitude
                 self.update_selector_1()
                 self.update_selector_2()
                 self.update_machins()
 
     def update_selector_1(self):
+        #                                       lower
         # If the altitude of the selector up is higher than the altitude of the edge, we increment the selector
+        # if self.selector_1_up.altitude < self.edge_altitude:
         if self.selector_1_up.altitude > self.edge_altitude:
             self.selector_1_down = self.selector_1_up
             if self.selector_1_up.parent is not None:
                 self.selector_1_up = self.selector_1_up.parent
 
     def update_selector_2(self):
+        # if self.selector_2_up.altitude < self.edge_altitude:
         if self.selector_2_up.altitude > self.edge_altitude:
             self.selector_2_down = self.selector_2_up
             if self.selector_2_up.parent is not None:
