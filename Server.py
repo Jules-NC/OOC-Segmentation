@@ -47,26 +47,36 @@ class Server:
 
             # When the node was created
             if self.node_created is True:
+                print("----------------------------------------")
                 print("Node created")
-                self.current_node.parent = self.max_selectors_up()
-                if self.current_node.parent is not None:
+                self.current_node.parent = self.second_min_selectors_up()
+                self.second_min_selectors_up().add_child(self.current_node)
+                self.max_selectors_up().delete_child(self.current_node)
+
+                self.second_update_selector_1()
+                self.second_update_selector_2()
+
+                if not self.current_node.is_root():
                     self.current_node = self.current_node.parent
-                self.edge_altitude = self.current_node.altitude
-                self.update_selector_1()
-                self.update_selector_2()
-                self.update_machins()
-            _i +=1
-            if _i>10: break
+
+                print("     Current node")
+                print("     |", self.current_node)
+                print("     Node selected to be the parent:")
+                print("     |", self.second_min_selectors_up())
+                print("     Selector 1")
+                print("     |", self.selector_1_up)
+                print("     |", self.selector_1_down)
+                print("     Selector 2")
+                print("     |", self.selector_2_up)
+                print("     |", self.selector_2_down)
+                print("----------------------------------------")
+
     def update_selector_1(self):
         # If the altitude of the selector up is lower than the altitude of the edge, we increment the selector
         if self.selector_1_up.altitude < self.edge_altitude:
             self.selector_1_down = self.selector_1_up
             if self.selector_1_up.parent is not None:
                 self.selector_1_up = self.selector_1_up.parent
-            print("Selector 1 EFFECTIVELY updated")
-        print("Selector 1 updated")
-        print("|", self.selector_1_up)
-        print("|", self.selector_1_down)
 
     def second_update_selector_1(self):
         self.selector_1_down = self.selector_1_up
@@ -79,10 +89,6 @@ class Server:
             self.selector_2_down = self.selector_2_up
             if self.selector_2_up.parent is not None:
                 self.selector_2_up = self.selector_2_up.parent
-            print("Selector 2 EFFECTIVELY updated")
-        print("Selector 2 updated")
-        print("|", self.selector_2_up)
-        print("|", self.selector_2_down)
 
     def second_update_selector_2(self):
         self.selector_2_down = self.selector_2_up
@@ -94,16 +100,11 @@ class Server:
         # STEP 1) Create the node and link the node to his parent and to his childs
         self.current_node = Node(name="NewNode",
                                  altitude=self.edge_altitude,
-                                 parent=self.max_selectors_up(),
+                                 parent=self.min_selectors_up(),
                                  childs=(self.selector_1_down, self.selector_2_down))
-        print("Node created")
-        print("|", self.current_node)
         # STEPS 1) Change the links on the NewNode
         self.current_node.parent.delete_child(self.current_node.parent.childs[1])
         self.current_node.parent.add_child(self.current_node)
-        print("----------------------------")
-        print("      current node")
-        print("     |", self.current_node)
 
         # STEP 2) Delete the remainings links from the selectors
         self.selector_1_down.parent = self.current_node
@@ -112,29 +113,16 @@ class Server:
         self.selector_1_up.delete_child(self.selector_1_down)
         self.selector_2_up.delete_child(self.selector_2_down)
 
-        print("     Selector 1")
-        print("     |", self.selector_1_up)
-        print("     |", self.selector_1_down)
-
-        print("     Selector 2")
-        print("     |", self.selector_2_up)
-        print("     |", self.selector_2_down)
-
         self.node_created = True
         self.current_node = self.current_node.parent
 
+        # STEP 3) Update the good selector
         if self.selector_1_up is self.current_node:
             self.second_update_selector_1()
-            print("     Selector 1 updated")
         elif self.selector_2_up is self.current_node:
-            print("     Selector 2 updated")
             self.second_update_selector_2()
         else:
             print("GROSSE ERREUR CA VA PAS IT S DOESN'T GOOD AT ALL")
-        print("     Selector 2")
-        print("     |", self.selector_2_up)
-        print("     |", self.selector_2_down)
-        print("----------------------------")
 
     def update_machins(self):
         print("Deleting the remaining links")
@@ -146,21 +134,18 @@ class Server:
         self.selector_1_up.delete_child(self.selector_1_down)
         self.selector_2_up.delete_child(self.selector_2_down)
 
-        self.node_created = True
         self.current_node = self.current_node.parent
 
         print("current node")
         print("|", self.current_node)
-
         print("Selector 1")
         print("|", self.selector_1_up.parent)
         print("|", self.selector_1_down.parent)
-
         print("Selector 2")
         print("|", self.selector_1_up.parent)
         print("|", self.selector_1_down.parent)
-
         print("----------------------------")
+
         if self.selector_1_up is self.current_node:
             self.second_update_selector_1()
         elif self.selector_2_up is self.current_node:
@@ -168,13 +153,29 @@ class Server:
         else:
             print("GROSSE ERREUR CA VA PAS IT S DOESN'T GOOD AT ALL")
 
-    def max_selectors_up(self):
+    def min_selectors_up(self):
         # If both are root => root is the next selector
-        if self.selector_1_up.is_root() and self.selector_2_up.is_root():
-            return None
+        if self.selector_1_up.altitude > self.selector_2_up.altitude:
+            return self.selector_2_up
+        else:
+            return self.selector_1_up
+
+    def second_min_selectors_up(self):
+        if self.current_node.is_root() and self.current_node is self.selector_1_up:
+            return self.selector_2_up
+
+        if self.current_node.is_root() and self.current_node is self.selector_2_up:
+            return self.selector_1_up
 
         if self.selector_1_up.altitude > self.selector_2_up.altitude:
             return self.selector_2_up
         else:
             return self.selector_1_up
+
+    def max_selectors_up(self):
+        # If both are root => root is the next selector
+        if self.selector_1_up.altitude > self.selector_2_up.altitude:
+            return self.selector_1_up
+        else:
+            return self.selector_2_up
 
