@@ -158,9 +158,18 @@ class Node:
             res += "None, "
         res += '"' + str(self.name) + '"' + ", "
         res += "[" + str(self.altitude) + "], "
-        if self.childs[0] is not None: res += "{" + str(self.childs[0].name) + ", "
-        if self.childs[1] is not None:
-            res += str(self.childs[1].name) + "}"
-        elif self.childs[0] is None and self.childs[1] is None:
+
+        # A and not B
+        if self.childs[0] is not None and self.childs[1] is None:
+            res += "{" + str(self.childs[0].name) + ",}"
+        # A and B
+        elif self.childs[0] is not None and self.childs[1] is not None:
+            res += "{" + str(self.childs[0].name) + "," + str(self.childs[1].name) + "}"
+        # not A and B
+        elif self.childs[0] is None and self.childs[1] is not None:
+            res += "{," + str(self.childs[1].name) + "}"
+        # not A and not B
+        else:
             res += "{,}"
+
         return res
