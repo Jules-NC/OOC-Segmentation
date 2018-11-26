@@ -20,19 +20,8 @@ class Server:
         self.node_created = False
 
     def compute(self):
-        _i = 0
-        print("Iteration n°-1")
-        print("Node not created")
-        print("Selector 1")
-        print("|", self.selector_1_up)
-        print("|", self.selector_1_down)
-        print("Selector 2")
-        print("|", self.selector_2_up)
-        print("|", self.selector_2_down)
-        print("-----------------------------------------------")
 
         while self.selector_1_up is not self.selector_2_up:
-            print("Iteration n°", _i)
             # If the node is not created
             if self.node_created is False:
                 print("Node not created")
@@ -47,8 +36,7 @@ class Server:
 
             # When the node was created
             if self.node_created is True:
-                print("----------------------------------------")
-                print("Node created")
+
                 self.current_node.parent = self.second_min_selectors_up()
                 self.second_min_selectors_up().add_child(self.current_node)
                 self.max_selectors_up().delete_child(self.current_node)
@@ -59,17 +47,6 @@ class Server:
                 if not self.current_node.is_root():
                     self.current_node = self.current_node.parent
 
-                print("     Current node")
-                print("     |", self.current_node)
-                print("     Node selected to be the parent:")
-                print("     |", self.second_min_selectors_up())
-                print("     Selector 1")
-                print("     |", self.selector_1_up)
-                print("     |", self.selector_1_down)
-                print("     Selector 2")
-                print("     |", self.selector_2_up)
-                print("     |", self.selector_2_down)
-                print("----------------------------------------")
 
     def update_selector_1(self):
         # If the altitude of the selector up is lower than the altitude of the edge, we increment the selector
@@ -82,7 +59,6 @@ class Server:
         self.selector_1_down = self.selector_1_up
         if self.selector_1_up.parent is not None:
             self.selector_1_up = self.selector_1_up.parent
-        print("Selector 1 EFFECTIVELY updated")
 
     def update_selector_2(self):
         if self.selector_2_up.altitude < self.edge_altitude:
@@ -94,7 +70,6 @@ class Server:
         self.selector_2_down = self.selector_2_up
         if self.selector_2_up.parent is not None:
             self.selector_2_up = self.selector_2_up.parent
-        print("Selector 2 EFFECTIVELY updated")
 
     def create_node(self):
         # STEP 1) Create the node and link the node to his parent and to his childs
@@ -121,12 +96,8 @@ class Server:
             self.second_update_selector_1()
         elif self.selector_2_up is self.current_node:
             self.second_update_selector_2()
-        else:
-            print("GROSSE ERREUR CA VA PAS IT S DOESN'T GOOD AT ALL")
 
     def update_machins(self):
-        print("Deleting the remaining links")
-        print("----------------------------")
         # STEP 2) Delete the remainings links from the selectors
         self.selector_1_down.parent = self.current_node
         self.selector_2_down.parent = self.current_node
@@ -136,22 +107,10 @@ class Server:
 
         self.current_node = self.current_node.parent
 
-        print("current node")
-        print("|", self.current_node)
-        print("Selector 1")
-        print("|", self.selector_1_up.parent)
-        print("|", self.selector_1_down.parent)
-        print("Selector 2")
-        print("|", self.selector_1_up.parent)
-        print("|", self.selector_1_down.parent)
-        print("----------------------------")
-
         if self.selector_1_up is self.current_node:
             self.second_update_selector_1()
         elif self.selector_2_up is self.current_node:
             self.second_update_selector_2()
-        else:
-            print("GROSSE ERREUR CA VA PAS IT S DOESN'T GOOD AT ALL")
 
     def min_selectors_up(self):
         # If both are root => root is the next selector
