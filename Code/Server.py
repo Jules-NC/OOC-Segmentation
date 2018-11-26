@@ -1,4 +1,4 @@
-from Tree import *
+from Code.Tree import *
 
 
 class Server:
