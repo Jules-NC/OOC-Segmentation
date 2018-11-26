@@ -74,7 +74,7 @@ def print_three_trees(trees, figsize=(10, 5)):
             plt.subplot(2,2,3)
             plt.title("Final tree 'W'")
         nx.draw(G, pos=pos, with_labels=True)
-    plt.savefig('Data/graphe_résumé.jpg')
+    plt.savefig('Data/graphe_résumé.png')
     plt.show()
 
 
