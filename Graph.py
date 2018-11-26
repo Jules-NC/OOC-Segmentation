@@ -1,8 +1,10 @@
 import numpy as np
+from Tree import *
+from Image import *
 
 
 class Graph:
-    def __init__(self, boundary, n_vertices=0, edges=[], weights=[]):
+    def __init__(self, n_vertices=0, edges=[], weights=[]):
         """
         A Graph is the sum of:
             - a list of Edges
@@ -20,12 +22,6 @@ class Graph:
         self.weights = weights
         self.it_size = len(edges)
         self.n_vertices = n_vertices  # nbr of vertices
-        self.boundary = boundary
-        self.im_size = boundary_to_image_size(self.boundary)
-
-        # Nombre de vertices compaptible avec le boundary
-        a = boundary_to_image_size(self.boundary)
-        assert a.len_x * a.len_y == n_vertices, "Incompatible boundaries"
 
         # Sort directly after being created to not do this in the main code, because we don't want to modify a Graph.
         self.sort()
@@ -46,13 +42,13 @@ class Graph:
             res += str(edge) + " : " + str(weight) + "\n"
         return res
 
-    def do_QBT(self, IMSIZE):
+    def do_QBT(self, boundary, IMSIZE):
         self.sort()
-        nodes = generate_leafs(self.boundary, IMSIZE)
+        nodes = generate_leafs(boundary, IMSIZE)
 
         for i, edge in enumerate(self):
-            e1 = int_coords_ibloc_to_iimage(edge[0], IMSIZE, self.boundary)
-            e2 = int_coords_ibloc_to_iimage(edge[1], IMSIZE, self.boundary)
+            e1 = int_coords_ibloc_to_iimage(edge[0], IMSIZE, boundary)
+            e2 = int_coords_ibloc_to_iimage(edge[1], IMSIZE, boundary)
 
             if nodes[edge[0]].root() is nodes[edge[1]].root():
                 continue
@@ -64,10 +60,6 @@ class Graph:
             nodes[edge[1]].root().parent = nodes[-1]
         res = Tree(nodes)
         return res
-
-
-from Tree import *
-from Image import *
 
 
 def generate_leafs(boundary, IMSIZE):
@@ -171,5 +163,5 @@ def generate_graph(imsize):
                 edges.append((pos, eq2))
     weights = [abs(int(i)) for i in np.random.normal(110, 40, len(edges))]
 
-    graph1 = Graph(n_vertices=X * Y, edges=edges, weights=weights, boundary=Boundary(0, 0, X - 1, Y - 1))
+    graph1 = Graph(n_vertices=X * Y, edges=edges, weights=weights, boundary=Border(0, 0, X - 1, Y - 1))
     return graph1

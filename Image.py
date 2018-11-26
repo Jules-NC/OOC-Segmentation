@@ -1,7 +1,6 @@
 import collections
 
 ImageSize = collections.namedtuple('ImageSize', ['len_x', 'len_y'])
-Boundary = collections.namedtuple('Boundary', ['x1', 'y1', 'x2', 'y2'])
 
 
 def boundary_to_image_size(boundary):
