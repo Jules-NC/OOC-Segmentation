@@ -43,6 +43,7 @@ class Server:
 
                 if not self.current_node.is_root():
                     self.current_node = self.current_node.parent
+        print(self.current_node)
 
     def update_selector_1(self):
         # If the altitude of the selector up is lower than the altitude of the edge, we increment the selector

@@ -9,4 +9,4 @@ class IMAGE:
         self.len_y = y
 
 
-IMAGE = IMAGE(4, 2)
+IMAGE = IMAGE(-1, -1)

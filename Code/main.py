@@ -6,7 +6,9 @@ from Code.Image import *
 from Code.Block import *
 from Code.Server import *
 
-IMSIZE = ImageSize(6, 1)
+IMAGE.len_x = 6
+IMAGE.len_y = 1
+
 boundary_1 = Border(0, 0, 2, 0)
 boundary_2 = Border(3, 0, 5, 0)
 
@@ -21,5 +23,3 @@ block_2 = Block(graph_2, boundary_2)
 server = Server(block_1, block_2, (1, 4), 4)
 
 server.compute()
-print(block_1.tree)
-print(IMAGE.len_x, IMAGE.len_y)
