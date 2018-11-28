@@ -19,3 +19,6 @@
 # Notebooks
 *.ipynb
 *.idea/
+
+# ==========[JE SAIS PAS]=====
+.cache/*

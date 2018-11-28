@@ -62,35 +62,28 @@ class Node:
     :param name: Name of the node. Can be any type
     :param altitude: int wich represent the QBT altitude (see QBT)
     """
-    def __init__(self, name="!", altitude=-1, parent=None, childs=(None, None)):
-        self.parent = parent
-        self.childs = childs
+    def __init__(self, name=None, altitude=None, parent=None, left=None, right=None):
         self.name = name
         self.altitude = altitude
-
-    def left(self):
-        """Return the left (gauche) child"""
-        return self.childs[0]
-
-    def right(self):
-        """Return the right (droite) child"""
-        return self.childs[1]
+        self.parent = parent
+        self.left = left
+        self.right = right
 
     def leaf(self):
         """True if the Node is a leaf => childs are None"""
-        return self.childs[0] is None and self.childs[1] is None
+        return self.left is None and self.right is None
 
     def rec_height(self, i):
         """Recursively get the height from the node to the childs"""
         if self.leaf():
             return i
-        ch1 = None
-        ch2 = None
-        if self.left() is not None:
-            ch1 = self.left().rec_height(i)
-        if self.right() is not None:
-            ch2 = self.right().rec_height(i)
-        return max(ch1, ch2) + 1
+        left = None
+        right = None
+        if self.left is not None:
+            left = self.left().rec_height(i)
+        if self.right is not None:
+            right = self.right.rec_height(i)
+        return max(left, right) + 1
 
     def set_childs(self, child1=None, child2=None):
         """...set the childs of the Node..."""
@@ -111,9 +104,6 @@ class Node:
         self.childs = tuple(self.childs)
 
     def delete_child(self, node):
-        # TODO : doc
-        # TODO : test
-
         self.childs = list(self.childs)
         if self.childs[0] is node:
             self.childs[0] = None
@@ -141,7 +131,14 @@ class Node:
         return self.parent.subtree(list)
 
     def __eq__(self, other):
-        return self == other
+        res = False
+        if self.name is other.name and \
+        self.altitude is other.altitude and \
+        self.parent is other.parent and \
+        self.left is other.left and \
+        self.right is other.right:
+            res = True
+        return res
 
     def is_(self, other):
         return self.name == other.name
@@ -151,25 +148,26 @@ class Node:
         Print a Node with the following template:
             parent name, "name", [altitude], {child 1 name, child 2 name}
         """
-        res = ""
+        res = "["
+        res += str(self.altitude) + ", "
+
+        res += "'" + str(self.name) + "'" + ", "
         if self.parent is not None:
-            res += str(self.parent.name) + ", "
+            res += "[" + str(self.parent.name) + "], "
         else:
-            res += "None, "
-        res += '"' + str(self.name) + '"' + ", "
-        res += "[" + str(self.altitude) + "], "
+            res += "[None], "
 
         # A and not B
-        if self.childs[0] is not None and self.childs[1] is None:
-            res += "{" + str(self.childs[0].name) + ",}"
+        if self.left is not None and self.right is None:
+            res += "{" + str(self.left.name) + ", None}"
         # A and B
-        elif self.childs[0] is not None and self.childs[1] is not None:
-            res += "{" + str(self.childs[0].name) + "," + str(self.childs[1].name) + "}"
+        elif self.left is not None and self.right is not None:
+            res += "{" + str(self.left.name) + ", " + str(self.right.name) + "}"
         # not A and B
-        elif self.childs[0] is None and self.childs[1] is not None:
-            res += "{," + str(self.childs[1].name) + "}"
+        elif self.left is None and self.right is not None:
+            res += "{None, " + str(self.right.name) + "}"
         # not A and not B
         else:
-            res += "{,}"
-
+            res += "{None, None}"
+        res +="]"
         return res
