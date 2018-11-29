@@ -8,6 +8,8 @@ class Border:
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
+        assert self.x1 >= 0 and self.y1 >= 0 and self.x2 < IMAGE.len_x and self.y2 < IMAGE.len_y, "The border must remain inside the image"
+        assert self.x1 <= self.x2 and self.y1 <= self.y2, "X1 must be lower or equal than X2 and the same goes for Y"
 
     def to_im_size(self):
         """Convert self object to a ImageSize one
@@ -16,21 +18,11 @@ class Border:
         """
         return ImageSize(self.x2 - self.x1 + 1, self.y2 - self.y1 + 1)
 
-    def index(self):
-        """
-        Used in addition to generate_leafs when i are required to name nodes
-        index(Boundary(0,0,1,1)) will yield:
-            0
-            1
-            2
-            3
-        and so on, it
-        """
-        img_len = self.to_im_size()
-        for i in range(img_len.len_x * img_len.len_y):
-            yield i
-
     def int_coords_ibloc_to_iimage(self, int_name):
+        img_size = self.to_im_size()
+        n = img_size.len_x*img_size.len_y
+        print(img_size.len_x*img_size.len_y)
+        assert int_name >= 0 and int_name < n 
         """
         Require the IMSIZE and the border
         Convert i0', i1', ... to i0, i1, ...
@@ -57,7 +49,9 @@ class Border:
             3
             4
         """
-        return [Node(name=self.int_coords_ibloc_to_iimage(i), altitude=0) for i in self.index()]
+        img_len = self.to_im_size()
+        return [Node(name=self.int_coords_ibloc_to_iimage(i), altitude=0) for i in range(img_len.len_x * img_len.len_y)]
+
 
 
 def coords_i_to_xy(i, imsize):
