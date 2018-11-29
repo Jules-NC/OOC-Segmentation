@@ -216,3 +216,15 @@ def test_unbind_child():
 
     with pytest.raises(AssertionError):
         node_1.unbind_child(node_2)
+
+
+def test_copy():
+    node_1 = Node(name="I", altitude=100)
+    node_2 = Node(name="II", altitude=13350, parent=node_1)
+    copy_of_node_2 = node_2.copy()
+    assert copy_of_node_2.name == "II"
+    assert copy_of_node_2.altitude == 13350
+    assert copy_of_node_2.parent is None
+    assert copy_of_node_2.left is None and copy_of_node_2.right is None
+        
+        

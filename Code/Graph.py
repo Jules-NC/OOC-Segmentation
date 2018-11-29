@@ -12,6 +12,7 @@ class Graph:
             - a border
 
         :param n_vertices: Number of vertices in the new graph.
+        :param n_vertices:
         :param edges: List of the edges of the graph
         :param weights: List of the weights of the edges. weight[0] corresponds to the weight of edges[0]
         """

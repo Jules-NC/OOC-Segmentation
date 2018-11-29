@@ -18,5 +18,6 @@ def test_sub_graph():
     node_4 = Node(name="NodeKAT", parent=node_3)
     
     tree_1 = Tree([node_4, node_3, node_2, node_1])
-    assert tree_1.root is not node_1    
+    assert tree_1.root is node_1
+    assert tree_1.root is not node_3
     

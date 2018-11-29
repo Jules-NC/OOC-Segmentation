@@ -24,7 +24,6 @@ class Node:
         """
         self.name = name
         self.altitude = altitude
-        self.ID = 12                                                                                                                   355
 
         self.parent = None
         if parent is not None:
@@ -167,5 +166,5 @@ class Node:
         return res
         
     def copy(self): 
-        return Node(name=self.name, altitude=self.altitude))
+        return Node(name=self.name, altitude=self.altitude)
         
