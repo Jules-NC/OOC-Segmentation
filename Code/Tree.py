@@ -64,7 +64,7 @@ class Node:
     def __init__(self, name=None, altitude=None, parent=None, left=None, right=None):
         self.name = name
         self.altitude = altitude
-        
+
         self.parent = None
         if parent is not None:
             self.bind_parent(parent)
@@ -76,7 +76,6 @@ class Node:
         self.right = None
         if right is not None:
             self.bind_child(right)
-
 
     def leaf(self):
         """True if the Node is a leaf => childs are None"""
