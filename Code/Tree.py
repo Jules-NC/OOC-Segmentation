@@ -1,8 +1,7 @@
 class Tree:
     """
     Tree object. A tree object is composed by a list of nodes and a root node
-    :param nodes: The list of Nodes of the tree
-    :param root: The root Node of the tree, wich is contained in self.nodes
+    :param list_of_nodes: The list of Nodes of the tree
     """
     def __init__(self, list_of_nodes):
         self.nodes = list_of_nodes
@@ -65,9 +64,19 @@ class Node:
     def __init__(self, name=None, altitude=None, parent=None, left=None, right=None):
         self.name = name
         self.altitude = altitude
-        self.parent = parent
-        self.left = left
-        self.right = right
+        
+        self.parent = None
+        if parent is not None:
+            self.bind_parent(parent)
+
+        self.left = None
+        if left is not None:
+            self.bind_child(left)
+
+        self.right = None
+        if right is not None:
+            self.bind_child(right)
+
 
     def leaf(self):
         """True if the Node is a leaf => childs are None"""
@@ -80,36 +89,62 @@ class Node:
         left = None
         right = None
         if self.left is not None:
-            left = self.left().rec_height(i)
+            left = self.left.rec_height(i)
         if self.right is not None:
             right = self.right.rec_height(i)
         return max(left, right) + 1
-
-    def set_childs(self, child1=None, child2=None):
-        """...set the childs of the Node..."""
-        self.childs = list(self.childs)
-        self.childs[0] = child1
-        self.childs[1] = child2
-        self.childs = tuple(self.childs)
 
     def add_child(self, node):
         """Add the Node node as a child of self if one of the childs of self is
         None. It will assign the left child first, and the right child if the
         left child already exists"""
-        self.childs = list(self.childs)
-        if self.childs[0] is None:
-            self.childs[0] = node
-        elif self.childs[1] is None:
-            self.childs[1] = node
-        self.childs = tuple(self.childs)
+        assert self.can_add_child() is True, "The parent must have one child 'left'..."
+
+        if self.left is None:
+            self.left = node
+        elif self.right is None:
+            self.right = node
+
+    def child_exist(self, other):
+        if self.left == other or self.right == other:
+            return True
+        else:
+            return False
 
     def delete_child(self, node):
-        self.childs = list(self.childs)
-        if self.childs[0] is node:
-            self.childs[0] = None
-        elif self.childs[1] is node:
-            self.childs[1] = None
-        self.childs = tuple(self.childs)
+        if self.left == node:
+            self.left = None
+        elif self.right == node:
+            self.right = None
+
+    def can_add_child(self):
+        if self.left is None or self.right is None:
+            return True
+        else:
+            return False
+
+    def bind_parent(self, node):
+        assert self.parent is None, "The parent must not exist"
+        self.parent = node
+        self.parent.add_child(self)
+
+    def unbind_parent(self, parent):
+        assert parent is not None, "parent must not be None"
+        assert self.parent is parent, "The parent of the node must be the good parent"
+        assert parent.child_exist(self)
+        self.parent = None
+        parent.delete_child(self)
+
+    def bind_child(self, node):
+        node.bind_parent(self)
+
+    def unbind_child(self, child):
+        assert child is not None, "Cannot unbind a unbinded link"
+        assert self.child_exist(child) is True, "The child to delete must exist"
+        assert child.parent is self, "The child must be linked to the parent"
+
+        self.delete_child(child)
+        child.parent = None
 
     def root(self):
         """Recursively return the root of the Node self"""
@@ -131,14 +166,12 @@ class Node:
         return self.parent.subtree(list)
 
     def __eq__(self, other):
-        res = False
-        if self.name is other.name and \
-        self.altitude is other.altitude and \
-        self.parent is other.parent and \
-        self.left is other.left and \
-        self.right is other.right:
-            res = True
-        return res
+        if other is None:
+            return False
+        if self.name == other.name and self.altitude == other.altitude:
+            return True
+        else:
+            return False
 
     def is_(self, other):
         return self.name == other.name

@@ -65,13 +65,13 @@ def print_three_trees(trees, figsize=(10, 5)):
         G.add_edges_from(listofedges)
         pos = hierarchy_pos(G, listofedges[-1][1])
         if i == 0:
-            plt.subplot(2,2,1)
+            plt.subplot(2, 2, 1)
             plt.title("Subtree of Bloc 1")
         elif i == 1:
-            plt.subplot(2,2,2)
+            plt.subplot(2, 2, 2)
             plt.title("Subtree of Bloc 2")
         elif i == 2:
-            plt.subplot(2,2,3)
+            plt.subplot(2, 2, 3)
             plt.title("Final tree 'W'")
         nx.draw(G, pos=pos, with_labels=True)
     plt.savefig('Data/graphe_résumé.png')

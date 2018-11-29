@@ -54,7 +54,8 @@ class Graph:
 
             nodes.append(Node(name=(e1, e2),
                               altitude=self.weights[i],
-                              childs=(nodes[edge[0]].root(), nodes[edge[1]].root())))
+                              left=nodes[edge[0]].root(),
+                              right=nodes[edge[1]].root()))
             nodes[edge[0]].root().parent = nodes[-1]
             nodes[edge[1]].root().parent = nodes[-1]
         res = Tree(nodes)

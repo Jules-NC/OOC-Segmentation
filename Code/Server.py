@@ -21,18 +21,18 @@ class Server:
 
     def compute(self):
         while self.selector_1_up is not self.selector_2_up:
-            # If the node is not created
+            #  If the node is not created
             if self.node_created is False:
                 self.update_selector_1()
                 self.update_selector_2()
-                # If both selectors are roots of they respective trees, we create the node
+                #  If both selectors are roots of they respective trees, we create the node
                 if self.selector_1_up.parent is None and self.selector_2_up is None:
                     self.create_node()
-                # If the altitude of both selectors up are higher than the altitude of the edge to merge
+                #  If the altitude of both selectors up are higher than the altitude of the edge to merge
                 if self.selector_1_up.altitude > self.edge_altitude and self.selector_2_up.altitude > self.edge_altitude:
                     self.create_node()
 
-            # When the node was created
+            #  When the node was created
             if self.node_created is True:
                 self.current_node.parent = self.second_min_selectors_up()
                 self.second_min_selectors_up().add_child(self.current_node)
@@ -110,7 +110,7 @@ class Server:
             self.second_update_selector_2()
 
     def min_selectors_up(self):
-        # If both are root => root is the next selector
+        #  If both are root => root is the next selector
         if self.selector_1_up.altitude > self.selector_2_up.altitude:
             return self.selector_2_up
         else:
@@ -129,9 +129,8 @@ class Server:
             return self.selector_1_up
 
     def max_selectors_up(self):
-        # If both are root => root is the next selector
+        #  If both are root => root is the next selector
         if self.selector_1_up.altitude > self.selector_2_up.altitude:
             return self.selector_1_up
         else:
             return self.selector_2_up
-
