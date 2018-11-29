@@ -1,5 +1,6 @@
+# -*-coding:Latin-1 -*  #Evite les erreurs Ã  la CON de Spyder pour l'ESIEE
 import pytest
-from Code.Tree import *
+from Code.Node import *
 
 
 def test_init():
@@ -81,23 +82,26 @@ def test_root():
 
 
 def test_is_root():
-    node_5 = Node(name="Node5", altitude=300)
-    node_6 = Node(name="NodeSix", altitude=120, left=node_5)
-    node_7 = Node(name="Node7ven", altitude=10)
-    node_8 = Node(name="Node8", altitude=42, parent=node_5, left=node_6, right=node_7)
-    #   TODO: faire fonctionner ca
-    #   root = node_8.root()
-    #   assert root.is_root() is True
-    #   assert node_5.is_root() or node_6.is_root() or node_7.is_root() is False
+    node_1 = Node(name="NodeI", altitude=300)
+    node_2 = Node(name="NodeII", altitude=120, parent=node_1)
+    node_3 = Node(name="NodeIII", altitude=10, parent=node_2)
+    node_4 = Node(name="NodeIV", altitude=42, parent=node_3)
+    assert node_1.is_root()
+    assert node_2.is_root() or node_3.is_root() or node_4.is_root() is False
 
 
 def test_rec_height():
-    node_5 = Node(name="Node5", altitude=300)
-    node_6 = Node(name="NodeSix", altitude=120, left=node_5)
-    node_7 = Node(name="Node7ven", altitude=10, parent=node_6)
-    node_8 = Node(name="Node8", altitude=42, parent=node_7)
+    node_1 = Node(name="NodeI", altitude=300)
+    node_2 = Node(name="NodeII", altitude=120, parent=node_1)
+    node_3 = Node(name="Node3", altitude=10, parent=node_2)
+    node_4 = Node(name="Node4", altitude=42, parent=node_3)
     #   TODO: Create a working test
-    #Â   assert node_8.rec_height(0) == 4
+    assert node_1.rec_height(0) == 3
+    assert node_2.rec_height(0) == 2
+    assert node_3.rec_height(0) == 1
+    assert node_4.rec_height(0) == 0
+    assert node_1.rec_height(300) == 303
+
 
 
 def test_add_delete_child():
@@ -125,8 +129,8 @@ def test_add_delete_child():
     #   Test the "overflow add
     node_10.delete_child(node_9)
     node_10.add_child(node_8)
-    node_10.delete_child(node_9)    # Ne sert Ã  rien mais doit marcher
-    node_10.delete_child(node_9)    # Ne sert Ã  rien mais doit marcher
+    node_10.delete_child(node_9)    # Ne sert Ã  rien mais doit marcher
+    node_10.delete_child(node_9)    # Ne sert Ã  rien mais doit marcher
 
     #   Test for the proper deletion (left then right) and the proper addition (left then right)
     assert node_10.left is node_8
