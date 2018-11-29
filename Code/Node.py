@@ -42,11 +42,13 @@ class Node:
         return self.left is None and self.right is None
 
     def rec_height(self, i):
+        assert i >= 0, "Rec_height canno be below zero"
         """Recursively get the height from the node to the childs"""
         if self.leaf():
             return i
-        left = None
-        right = None
+        #   To avoid None comparisons, -1 better than None
+        left = -1
+        right = -1
         if self.left is not None:
             left = self.left.rec_height(i)
         if self.right is not None:
@@ -118,12 +120,12 @@ class Node:
         else:
             return False
 
-    def subtree(self, list):
-        """Recursively add the parent of self to a list list_ => subtree"""
+    def subtree(self, list_):
+        """Recursively add the parent of self to a list_ list_ => subtree"""
         if self.parent is None:
-            return list
-        list.append(self)
-        return self.parent.subtree(list)
+            return list_
+        list_.append(self)
+        return self.parent.subtree(list_)
 
     def __eq__(self, other):
         if other is None:
@@ -162,9 +164,8 @@ class Node:
         # not A and not B
         else:
             res += "{None, None}"
-        res +="]"
+        res += "]"
         return res
         
     def copy(self): 
         return Node(name=self.name, altitude=self.altitude)
-        

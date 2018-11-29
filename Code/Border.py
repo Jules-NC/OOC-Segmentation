@@ -1,5 +1,5 @@
 from Code.Image import *
-from Code.Tree import Node
+from Code.Node import Node
 
 
 class Border:
@@ -8,7 +8,8 @@ class Border:
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
-        assert self.x1 >= 0 and self.y1 >= 0 and self.x2 < IMAGE.len_x and self.y2 < IMAGE.len_y, "The border must remain inside the image"
+        assert self.x1 >= 0 and self.y1 >= 0 and self.x2 < IMAGE.len_x and self.y2 < IMAGE.len_y, \
+            "The border must remain inside the image"
         assert self.x1 <= self.x2 and self.y1 <= self.y2, "X1 must be lower or equal than X2 and the same goes for Y"
 
     def to_im_size(self):
@@ -22,7 +23,7 @@ class Border:
         img_size = self.to_im_size()
         n = img_size.len_x*img_size.len_y
         print(img_size.len_x*img_size.len_y)
-        assert int_name >= 0 and int_name < n 
+        assert n > int_name >= 0
         """
         Require the IMSIZE and the border
         Convert i0', i1', ... to i0, i1, ...
@@ -51,7 +52,6 @@ class Border:
         """
         img_len = self.to_im_size()
         return [Node(name=self.int_coords_ibloc_to_iimage(i), altitude=0) for i in range(img_len.len_x * img_len.len_y)]
-
 
 
 def coords_i_to_xy(i, imsize):

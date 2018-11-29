@@ -34,6 +34,7 @@ def test_init():
     node_6 = Node(name="NodeSix", altitude=120)
     node_7 = Node(name="Node7ven", altitude=10)
     node_8 = Node(name="Node8", altitude=42, parent=node_5, left=node_6, right=node_7)
+    #   TODO : savoir ce que ce truc fait la, je me souviens plus
 
 
 def test_str():
@@ -95,13 +96,17 @@ def test_rec_height():
     node_2 = Node(name="NodeII", altitude=120, parent=node_1)
     node_3 = Node(name="Node3", altitude=10, parent=node_2)
     node_4 = Node(name="Node4", altitude=42, parent=node_3)
-    #   TODO: Create a working test
+    print(node_1)
+    print(node_2)
+    print(node_3)
+    print(node_4)
     assert node_1.rec_height(0) == 3
     assert node_2.rec_height(0) == 2
     assert node_3.rec_height(0) == 1
     assert node_4.rec_height(0) == 0
     assert node_1.rec_height(300) == 303
-
+    with pytest.raises(AssertionError):
+        assert node_1.rec_height(-1) == 2
 
 
 def test_add_delete_child():
@@ -227,4 +232,9 @@ def test_copy():
     assert copy_of_node_2.parent is None
     assert copy_of_node_2.left is None and copy_of_node_2.right is None
         
-        
+
+def test_leaf():
+    node_1 = Node(name="I", altitude=100)
+    assert node_1.leaf() is True
+    node_2 = Node(name="II", altitude=13350, left=node_1)
+    assert node_2.leaf() is False

@@ -1,12 +1,11 @@
 import pytest
 from Code.Border import *
-from Code.Image import *
-
 
 IMAGE.len_x = 4
 IMAGE.len_y = 2
 
-def test_border_1():
+
+def test_border():
     b_1 = Border(0, 0, 1, 1)
     assert b_1.x1 == 0
     assert b_1.y1 == 0
@@ -38,19 +37,19 @@ def test_index():
     IMAGE.len_x = 2
     IMAGE.len_y = 3942
     with pytest.raises(AssertionError):
-        b_1 = Border(-1, 0, 0, 0)
+        Border(-1, 0, 0, 0)
     
     with pytest.raises(AssertionError):
-        b_1 = Border(0, 0, 2, 0)
+        Border(0, 0, 2, 0)
 
     with pytest.raises(AssertionError):
-        b_1 = Border(0, 0, 1, 3942)
+        Border(0, 0, 1, 3942)
         
     with pytest.raises(AssertionError):
-        b_1 = Border(10, 0, 1, 0)
+        Border(10, 0, 1, 0)
         
     with pytest.raises(AssertionError):
-        b_1 = Border(0, 900, 1, 2)
+        Border(0, 900, 1, 2)
 
 
 def test_int_coords_ibloc_to_iimage():
@@ -62,3 +61,19 @@ def test_int_coords_ibloc_to_iimage():
     assert b_1.int_coords_ibloc_to_iimage(3) is 75 
     assert b_1.int_coords_ibloc_to_iimage(8) is 92
 
+
+def test_to_im_size():
+    b_1 = Border(2, 7, 5, 9)
+    ims = b_1.to_im_size()
+    assert ims.len_x is 4
+    assert ims.len_y is 3
+
+
+def test_coords_i_to_xy():
+    #   TODO: Find better examples
+    t_1 = coords_i_to_xy(2, ImageSize(2, 2))
+    assert t_1 == (0, 1)
+    t_2 = coords_i_to_xy(2, ImageSize(2, 4))
+    assert t_2 == (0, 1)
+    t_3 = coords_i_to_xy(0, ImageSize(1, 1))
+    assert t_3 == (0, 0)

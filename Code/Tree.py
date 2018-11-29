@@ -1,4 +1,3 @@
-from Node import *
 class Tree:
     """
     Tree object. A tree object is composed by a list of nodes and a root node
