@@ -22,7 +22,6 @@ class Border:
     def int_coords_ibloc_to_iimage(self, int_name):
         img_size = self.to_im_size()
         n = img_size.len_x*img_size.len_y
-        print(img_size.len_x*img_size.len_y)
         assert n > int_name >= 0
         """
         Require the IMSIZE and the border

@@ -57,8 +57,6 @@ class Graph:
                               altitude=self.weights[i],
                               left=nodes[edge[0]].root(),
                               right=nodes[edge[1]].root()))
-            nodes[edge[0]].root().parent = nodes[-1]
-            nodes[edge[1]].root().parent = nodes[-1]
         res = Tree(nodes)
         return res
 

@@ -15,8 +15,8 @@ class Tree:
 
     def subtree(self, leaf_name):
         """
-        If leaf_name is a leaf, then subtree(self, leaf_name) will return a new
-        Tree composed by the parents of the leaf only
+        If leaf_name is a is_leaf, then subtree(self, leaf_name) will return a new
+        Tree composed by the parents of the is_leaf only
         
         If the Tree is:
             a
@@ -36,7 +36,7 @@ class Tree:
         for node in self.nodes:  # TODO: actually O(n). Want O(1) for the search part
             if node.name == leaf_name:
                 res = node.subtree([])
-        assert res is not None, "leaf not found"
+        assert res is not None, "is_leaf not found"
         return Tree(res)
 
     def __str__(self):

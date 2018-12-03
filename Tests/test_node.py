@@ -34,7 +34,15 @@ def test_init():
     node_6 = Node(name="NodeSix", altitude=120)
     node_7 = Node(name="Node7ven", altitude=10)
     node_8 = Node(name="Node8", altitude=42, parent=node_5, left=node_6, right=node_7)
-    #   TODO : savoir ce que ce truc fait la, je me souviens plus
+    assert node_8.right is node_7
+    assert node_7.parent is node_8
+
+    assert node_8.left is node_6
+    assert node_6.parent is node_8
+
+    assert node_8.parent is node_5
+    assert  node_5.left is node_8
+    assert node_5.is_leaf() is False and node_6.is_leaf() is True and node_7.is_leaf() is True
 
 
 def test_str():
@@ -77,7 +85,7 @@ def test_root():
     node_7 = Node(name="Node7ven", altitude=10, parent=node_6)
     node_8 = Node(name="Node8", altitude=42, parent=node_7)
     root = node_8.root()
-    print(root)
+    #print(root)
     assert root is node_5
     assert root == node_5
 
@@ -96,10 +104,10 @@ def test_rec_height():
     node_2 = Node(name="NodeII", altitude=120, parent=node_1)
     node_3 = Node(name="Node3", altitude=10, parent=node_2)
     node_4 = Node(name="Node4", altitude=42, parent=node_3)
-    print(node_1)
-    print(node_2)
-    print(node_3)
-    print(node_4)
+    #print(node_1)
+    #print(node_2)
+    #print(node_3)
+    #print(node_4)
     assert node_1.rec_height(0) == 3
     assert node_2.rec_height(0) == 2
     assert node_3.rec_height(0) == 1
@@ -160,6 +168,10 @@ def test_bind_parent():
     #   Try to bind a parent to a node who already have a parent
     with pytest.raises(AssertionError):
         node_3.bind_parent(node_1)
+
+    node_4 = Node()
+    with pytest.raises(AssertionError):
+        node_4.bind_parent(node_4)
 
 
 def test_unbind_parent():
@@ -233,8 +245,8 @@ def test_copy():
     assert copy_of_node_2.left is None and copy_of_node_2.right is None
         
 
-def test_leaf():
+def test_is_leaf():
     node_1 = Node(name="I", altitude=100)
-    assert node_1.leaf() is True
+    assert node_1.is_leaf() is True
     node_2 = Node(name="II", altitude=13350, left=node_1)
-    assert node_2.leaf() is False
+    assert node_2.is_leaf() is False

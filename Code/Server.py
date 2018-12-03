@@ -1,4 +1,4 @@
-from Code.Tree import *
+from Code.Node import *
 
 
 class Server:
@@ -35,8 +35,11 @@ class Server:
             #  When the node was created
             if self.node_created is True:
                 self.current_node.parent = self.second_min_selectors_up()
-                self.second_min_selectors_up().add_child(self.current_node)
-                self.max_selectors_up().delete_child(self.current_node)
+                #   self.second_min_selectors_up().add_child(self.current_node)
+                #   self.max_selectors_up().delete_child(self.current_node)
+                #   self.second_min_selectors_up().unbind_child(self.current_node)
+                #   self.max_selectors_up().undbind_child(self.current_node)
+
 
                 self.second_update_selector_1()
                 self.second_update_selector_2()
@@ -70,13 +73,18 @@ class Server:
 
     def create_node(self):
         # STEP 1) Create the node and link the node to his parent and to his childs
+        self.selector_1_down.unbind_parent(self.selector_1_down.parent)
+        self.selector_2_down.unbind_parent(self.selector_2_down.parent)
+        self.min_selectors_up().unbind_child(self.min_selectors_up().left)
         self.current_node = Node(name="NewNode",
                                  altitude=self.edge_altitude,
                                  parent=self.min_selectors_up(),
-                                 childs=(self.selector_1_down, self.selector_2_down))
+                                 left=self.selector_1_down,
+                                 right=self.selector_2_down)
         # STEPS 1) Change the links on the NewNode
-        self.current_node.parent.delete_child(self.current_node.parent.childs[1])
-        self.current_node.parent.add_child(self.current_node)
+        #self.current_node.parent.delete_child(self.current_node.parent.childs[1])
+        #self.current_node.parent.add_child(self.current_node)
+
 
         # STEP 2) Delete the remainings links from the selectors
         self.selector_1_down.parent = self.current_node

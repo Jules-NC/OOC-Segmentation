@@ -37,14 +37,14 @@ class Node:
         if right is not None:
             self.bind_child(right)
 
-    def leaf(self):
-        """True if the Node is a leaf => childs are None"""
+    def is_leaf(self):
+        """True if the Node is a is_leaf => childs are None"""
         return self.left is None and self.right is None
 
     def rec_height(self, i):
         assert i >= 0, "Rec_height canno be below zero"
         """Recursively get the height from the node to the childs"""
-        if self.leaf():
+        if self.is_leaf():
             return i
         #   To avoid None comparisons, -1 better than None
         left = -1
@@ -86,6 +86,7 @@ class Node:
 
     def bind_parent(self, node):
         assert self.parent is None, "The parent must not exist"
+        assert node != self, "The parent must not be the current node"
         self.parent = node
         self.parent.add_child(self)
 
@@ -97,6 +98,7 @@ class Node:
         parent.delete_child(self)
 
     def bind_child(self, node):
+        assert node != self, "The child must not be the current node"
         node.bind_parent(self)
 
     def unbind_child(self, child):
