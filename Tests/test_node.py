@@ -181,19 +181,13 @@ def test_unbind_parent():
     node_1.bind_parent(node_2)
     assert node_1.parent is node_2
 
-    node_1.unbind_parent(node_2)
+    node_1.unbind_parent()
     assert node_1.parent is None
     assert node_2.left is None
 
-    #   Try to unbind a parent to a node who don't hve a parent
-    with pytest.raises(AssertionError):
-        node_1.unbind_parent(node_2)
-
-    with pytest.raises(AssertionError):
-        node_2.unbind_parent(node_2)
-
-    with pytest.raises(AssertionError):
-        node_1.unbind_parent(None)
+    #   Try to unbind a parent to a node who don't hve a parent => work
+    node_1.unbind_parent()
+    node_2.unbind_parent()
 
 
 def test_bind_child():

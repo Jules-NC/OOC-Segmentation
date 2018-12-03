@@ -90,12 +90,13 @@ class Node:
         self.parent = node
         self.parent.add_child(self)
 
-    def unbind_parent(self, parent):
-        assert parent is not None, "parent must not be None"
-        assert self.parent is parent, "The parent of the node must be the good parent"
-        assert parent.child_exist(self)
+    def unbind_parent(self):
+        #assert self.parent is not None, "parent must not be None"
+        if self.is_root():
+            return
+        assert self.parent.child_exist(self)
+        self.parent.delete_child(self)
         self.parent = None
-        parent.delete_child(self)
 
     def bind_child(self, node):
         assert node != self, "The child must not be the current node"

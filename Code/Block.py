@@ -7,3 +7,7 @@ class Block:
 
     def get_subtree(self, leaf_name):
         return self.tree.subtree(leaf_name)
+    def updateTree(self, newBoundary, leaf_index):
+        # search the leaf
+        # compare
+        pass
