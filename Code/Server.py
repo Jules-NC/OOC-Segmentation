@@ -1,6 +1,5 @@
 from Code.Node import *
-
-
+from Code.Tree import *
 class Server:
     def __init__(self, bloc_1, bloc_2, edge, edge_altitude):
 
@@ -18,25 +17,41 @@ class Server:
 
         self.current_node = None
         self.node_created = False
+        self.new_tree = None
+        self.new_tree_nodes = []
+
+    def merging(self):
+        self.compute()
+        self.new_tree = Tree(self.new_tree_nodes)
+
+        update_bloc1 = self.new_tree.subtree(self.edge[0])
+        self.bloc_1.update_tree(update_bloc1)
+
+        update_bloc2 = self.new_tree.subtree(self.edge[1])
+        self.bloc_2.update_tree(update_bloc2)
 
     def compute(self):
         while self.selector_1_up is not self.selector_2_up:
             #  If the node is not created
             if self.node_created is False:
-                self.update_selector_1()
-                self.update_selector_2()
+                self.new_tree_nodes.append(self.selector_1_down)
+                self.new_tree_nodes.append(self.selector_2_down)
+
                 #  If both selectors are roots of they respective trees, we create the node
                 if self.selector_1_up.is_root() and self.selector_2_up.is_root():
                     self.create_node()
-                #  If the altitude of both selectors up are higher than the altitude of the edge to merge
+                #  If the altitude of both selectorcurrent_nodes up are higher than the altitude of the edge to merge
                 if self.selector_1_up.altitude > self.edge_altitude and self.selector_2_up.altitude > self.edge_altitude:
                     self.create_node()
+                self.update_selector_1()
+                self.update_selector_2()
 
             #  When the node was created
             if self.node_created is True:
                 self.current_node.unbind_parent()
                 self.current_node.bind_parent(self.second_min_selectors_up())
 
+                self.new_tree_nodes.append(self.current_node)
                 self.second_update_selector_1()
                 self.second_update_selector_2()
 
@@ -78,6 +93,7 @@ class Server:
                                  right=self.selector_2_down)
 
         self.node_created = True
+        self.new_tree_nodes.append(self.current_node)
         self.current_node = self.current_node.parent
 
         # STEP 3) Update the good selector
