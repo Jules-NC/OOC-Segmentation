@@ -1,4 +1,4 @@
-from Tree import *
+import Tree
 from Image import *
 
 
@@ -13,7 +13,7 @@ def generate_leafs(boundary, IMSIZE):
         3
         4
     """
-    return [Node(name=int_coords_ibloc_to_iimage(i, IMSIZE, boundary), altitude=0) for i in index(boundary)]
+    return [Tree.Node(name=int_coords_ibloc_to_iimage(i, IMSIZE, boundary), altitude=0) for i in index(boundary)]
 
 
 def index(bound):
@@ -42,12 +42,12 @@ def do_QBT(graph, IMSIZE):
         if nodes[edge[0]].root() is nodes[edge[1]].root():
             continue
 
-        nodes.append(Node(name=(e1, e2),
-                          altitude=graph.weights[i],
-                          childs=(nodes[edge[0]].root(), nodes[edge[1]].root())))
+        nodes.append(Tree.Node(name=(e1, e2),
+                               altitude=graph.weights[i],
+                               childs=(nodes[edge[0]].root(), nodes[edge[1]].root())))
         nodes[edge[0]].root().parent = nodes[-1]
         nodes[edge[1]].root().parent = nodes[-1]
-    res = Tree(nodes)
+    res = Tree.Tree(nodes)
     return res
 
 

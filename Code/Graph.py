@@ -1,18 +1,20 @@
 import numpy as np
-from Image import *
+from Code.Tree import *
+from Code.Border import *
+
 
 class Graph:
-    def __init__(self, boundary, n_vertices=0, edges=[], weights=[]):
+    def __init__(self, n_vertices=0, edges=None, weights=None):
         """
         A Graph is the sum of:
             - a list of Edges
             - one weight per edge
-            - a boundary
+            - a border
 
-        :param n_vertices: Number of vertices in the new graph.  # TODO: regarder si c'est vraiment utile
+        :param n_vertices: Number of vertices in the new graph.
+        :param n_vertices:
         :param edges: List of the edges of the graph
         :param weights: List of the weights of the edges. weight[0] corresponds to the weight of edges[0]
-        :param boundary: Where this graph is located ?
         """
         assert len(edges) == len(weights), "Incompatible length"
 
@@ -20,12 +22,6 @@ class Graph:
         self.weights = weights
         self.it_size = len(edges)
         self.n_vertices = n_vertices  # nbr of vertices
-        self.boundary = boundary
-        self.im_size = boundary_to_image_size(self.boundary)
-
-        # Nombre de vertices compaptible avec le boundary
-        a = boundary_to_image_size(self.boundary)
-        assert a.len_x * a.len_y == n_vertices, "Incompatible boundaries"
 
         # Sort directly after being created to not do this in the main code, because we don't want to modify a Graph.
         self.sort()
@@ -46,6 +42,24 @@ class Graph:
             res += str(edge) + " : " + str(weight) + "\n"
         return res
 
+    def do_QBT(self, border):
+        self.sort()
+        nodes = border.generate_leafs()
+
+        for i, edge in enumerate(self):
+            e1 = int_coords_ibloc_to_iimage(edge[0], border)
+            e2 = int_coords_ibloc_to_iimage(edge[1], border)
+
+            if nodes[edge[0]].root() is nodes[edge[1]].root():
+                continue
+
+            nodes.append(Node(name=(e1, e2),
+                              altitude=self.weights[i],
+                              left=nodes[edge[0]].root(),
+                              right=nodes[edge[1]].root()))
+        res = Tree(nodes)
+        return res
+
 
 def generate_graph(imsize):
     X = imsize.len_x
@@ -63,5 +77,5 @@ def generate_graph(imsize):
                 edges.append((pos, eq2))
     weights = [abs(int(i)) for i in np.random.normal(110, 40, len(edges))]
 
-    graph1 = Graph(n_vertices=X * Y, edges=edges, weights=weights, boundary=Boundary(0, 0, X - 1, Y - 1))
+    graph1 = Graph(n_vertices=X * Y, edges=edges, weights=weights)
     return graph1
