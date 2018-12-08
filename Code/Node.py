@@ -138,6 +138,12 @@ class Node:
         else:
             return False
 
+    def __lt__(self, other):
+        if self.altitude < other.altitude:
+            return True
+        else:
+            return False
+
     def is_(self, other):
         return self.name == other.name
 

@@ -27,6 +27,6 @@ print("TEST")
 
 server = Server(block_1, block_2, (1, 4), 4)
 
-server.compute()
-
+#server.compute()
+server.merging()
 pass
