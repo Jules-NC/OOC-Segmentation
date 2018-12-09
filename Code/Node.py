@@ -85,7 +85,7 @@ class Node:
             return False
 
     def bind_parent(self, node):
-        assert self.parent is None, "The parent must not exist"
+        assert self.parent is None, "The parent must exist"
         assert node != self, "The parent must not be the current node"
         self.parent = node
         self.parent.add_child(self)

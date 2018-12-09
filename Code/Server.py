@@ -5,6 +5,9 @@ from Code.Block import *
 class Server:
     def __init__(self, bloc_1, bloc_2, edge, edge_altitude):
 
+        self.bloc_1 = bloc_1
+        self.bloc_2 = bloc_2
+
         self.edge = edge
         self.edge_altitude = edge_altitude
 
