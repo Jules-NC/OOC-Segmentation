@@ -24,3 +24,21 @@ def test_compute():
 
     server = Server(block_1, block_2, (1, 4), 4)
     server.compute()
+    assert server.selector_1_up == server.selector_2_up
+    assert server.selector_1_up == Node(name=(4, 5), altitude=8)
+
+    assert server.selector_1_up.left == Node(name=(1, 2), altitude=7)
+    assert server.selector_1_up.right is None
+
+    assert server.selector_1_up.left.left == Node(name=(3, 4), altitude=6)
+    assert server.selector_1_up.left.right is None
+
+    assert server.selector_1_up.left.left.left == Node(name="NewNode", altitude=4)
+    assert server.selector_1_up.left.left.right is None
+
+    assert server.selector_1_up.left.left.left.left == Node(name=(0, 1), altitude=3)
+    assert server.selector_1_up.left.left.left.right == Node(name=4, altitude=0)
+
+    assert server.selector_1_up.left.left.left.left.left == Node(name=1, altitude=0)
+    assert server.selector_1_up.left.left.left.left.right is None
+

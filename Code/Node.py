@@ -85,7 +85,7 @@ class Node:
             return False
 
     def bind_parent(self, node):
-        assert self.parent is None, "The parent must not exist"
+        assert self.parent is None, "The parent must exist"
         assert node != self, "The parent must not be the current node"
         self.parent = node
         self.parent.add_child(self)
@@ -134,6 +134,12 @@ class Node:
         if other is None:
             return False
         if self.name == other.name and self.altitude == other.altitude:
+            return True
+        else:
+            return False
+
+    def __lt__(self, other):
+        if self.altitude < other.altitude:
             return True
         else:
             return False

@@ -1,10 +1,18 @@
 from Code.Node import *
 from Code.Tree import *
+from Code.Block import *
+
 class Server:
     def __init__(self, bloc_1, bloc_2, edge, edge_altitude):
 
+        self.bloc_1 = bloc_1
+        self.bloc_2 = bloc_2
+
         self.edge = edge
         self.edge_altitude = edge_altitude
+
+        self.bloc_1 = bloc_1
+        self.bloc_2 = bloc_2
 
         self.subtree_1 = bloc_1.get_subtree(edge[0])
         self.subtree_2 = bloc_2.get_subtree(edge[1])
@@ -25,10 +33,10 @@ class Server:
         self.new_tree = Tree(self.new_tree_nodes)
 
         update_bloc1 = self.new_tree.subtree(self.edge[0])
-        self.bloc_1.update_tree(update_bloc1)
+        self.bloc_1.update_tree(update_bloc1, self.edge[0])
 
         update_bloc2 = self.new_tree.subtree(self.edge[1])
-        self.bloc_2.update_tree(update_bloc2)
+        self.bloc_2.update_tree(update_bloc2,self.edge[1])
 
     def compute(self):
         while self.selector_1_up is not self.selector_2_up:
