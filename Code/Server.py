@@ -29,10 +29,10 @@ class Server:
         self.compute()
         self.new_tree = Tree(self.new_tree_nodes)
 
-        update_bloc1 = self.new_tree.subtree(self.edge[0])
+        update_bloc1 = self.new_tree.leaf_subtree(self.edge[0])
         self.bloc_1.update_tree(update_bloc1, self.edge[0])
 
-        update_bloc2 = self.new_tree.subtree(self.edge[1])
+        update_bloc2 = self.new_tree.leaf_subtree(self.edge[1])
         self.bloc_2.update_tree(update_bloc2,self.edge[1])
 
     def compute(self):

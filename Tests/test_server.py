@@ -24,3 +24,5 @@ def test_compute():
 
     server = Server(block_1, block_2, (1, 4), 4)
     server.compute()
+
+

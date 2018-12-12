@@ -35,4 +35,7 @@ class Block:
         self.tree = Tree(new_list)
 
     def get_subtree(self, leaf_name):
-        return self.tree.subtree(leaf_name)
+        return self.tree.leaf_subtree(leaf_name)
+
+    def get_border_tree(self, list_border):
+        return self.tree.leaves_subtree(list_border)

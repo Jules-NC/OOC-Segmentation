@@ -27,6 +27,7 @@ print("TEST")
 
 server = Server(block_1, block_2, (1, 4), 4)
 
+border = block_1.get_border_tree([1, 2])
 #server.compute()
-server.merging()
+#server.merging()
 pass

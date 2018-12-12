@@ -18,8 +18,7 @@ class Tree:
             if node.name == leaf_name:
                 return node
 
-    def subtree(self, leaf_name):
-        """Recursively add the parent of self to a list list_ => subtree"""
+    def leaf_subtree(self, leaf_name):
         ref = self.find_leaf(leaf_name)
         # Create the sublist
         boundary = []
@@ -30,31 +29,25 @@ class Tree:
             boundary[i].bind_parent(boundary[i+1])
         return Tree(boundary)
 
-    # def subtree(self, leaf_name):
-    #     """
-    #     If leaf_name is a is_leaf, then subtree(self, leaf_name) will return a new
-    #     Tree composed by the parents of the is_leaf only
-    #
-    #     If the Tree is:
-    #         a
-    #        / \
-    #       b   c
-    #      /
-    #     d
-    #
-    #     then subtree(d) will return:
-    #         a
-    #        /
-    #       b
-    #      /
-    #     d
-    #     """
-    #     res = None
-    #     for node in self.nodes:  # TODO: actually O(n). Want O(1) for the search part
-    #         if node.name == leaf_name:
-    #             res = node.subtree([])
-    #     assert res is not None, "is_leaf not found"
-    #     return Tree(res)
+    def leaves_subtree(self, leaves_name):
+        boundary = []
+        for l in leaves_name:
+            ref = self.find_leaf(l)
+            # Create the sublist
+
+            while ref is not None and ref not in boundary:
+                boundary.append(ref.copy())
+                ref = ref.parent
+            ref = self.find_leaf(l)
+            while ref is not None:
+                if not ref.is_root():
+                    n = boundary.index(ref.copy())
+                    n_parent = boundary.index(ref.parent.copy())
+                    if n_parent is not None:
+                        boundary[n].bind_parent(boundary[n_parent])
+                ref = ref.parent
+
+        return Tree(boundary)
 
     def __str__(self):
         """
