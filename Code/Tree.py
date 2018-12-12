@@ -34,7 +34,6 @@ class Tree:
         for l in leaves_name:
             ref = self.find_leaf(l)
             # Create the sublist
-
             while ref is not None and ref not in boundary:
                 boundary.append(ref.copy())
                 ref = ref.parent
