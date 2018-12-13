@@ -2,7 +2,7 @@ import sys
 from Code.Graph import *
 from Code.Image import *
 from Code.Block import *
-from Code.Server import *
+from Code.Server2 import *
 #   from Code.GraphPrinter import *
 
 
@@ -25,9 +25,10 @@ block_2 = Block(graph_2, boundary_2)
 print("TEST")
 #   print_three_trees([block_1.get_subtree(1), block_2.get_subtree(4)], figsize=(20, 10))
 
-server = Server(block_1, block_2, (1, 4), 4)
-
+# server = Server(block_1, block_2, (1, 4), 4)
+server2 = Server2(3,3)
 border = block_1.get_border_tree([1, 2])
 
-server.merging()
+server2.merging(block_1, block_2, [(1, 4)], [4])
+# server.merging()
 pass

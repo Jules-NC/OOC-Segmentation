@@ -1,6 +1,5 @@
 from Code.Node import *
 from Code.Tree import *
-from Code.GraphPrinter import *
 
 
 class Block:
@@ -44,8 +43,8 @@ class Block:
         new_list.sort()
         self.tree = Tree(new_list)
 
-    def get_subtree(self, leaf_name):
-        return self.tree.leaf_subtree(leaf_name)
+    def get_subtree(self, leaves_name):
+        return self.tree.leaves_subtree(leaves_name)
 
     def get_border_tree(self, list_border):
         return self.tree.leaves_subtree(list_border)

@@ -3,6 +3,7 @@ from Code.Tree import *
 from Code.Block import *
 
 class Server:
+
     def __init__(self, bloc_1, bloc_2, edge, edge_altitude):
 
         self.edge = edge
