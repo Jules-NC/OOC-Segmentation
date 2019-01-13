@@ -1,3 +1,5 @@
+from Code.Tree import *
+
 class Tree:
     """
     Tree object. A tree object is composed by a list of nodes and a root node
@@ -42,10 +44,10 @@ class Tree:
                 if not ref.is_root():
                     n = boundary.index(ref.copy())
                     n_parent = boundary.index(ref.parent.copy())
-                    if n_parent is not None:
+                    if n_parent is not None and boundary[n].parent is None:
                         boundary[n].bind_parent(boundary[n_parent])
                 ref = ref.parent
-
+        boundary.sort()
         return Tree(boundary)
 
     def __str__(self):
