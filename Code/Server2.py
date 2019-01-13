@@ -220,7 +220,8 @@ class Server2:
             if selector_1_up is not selector_2_up:
                 if node_created is True:
                     current_node.unbind_parent()
-                    current_node.bind_parent(self.min_selectors_up(node_created, selector_1_up, selector_2_up, current_node))
+                    current_node.bind_parent(self.min_selectors_up(node_created, selector_1_up, selector_2_up,
+                                                                   selector_1_down, selector_2_down, current_node))
 
                     new_tree_nodes.append(current_node)
 
@@ -235,14 +236,18 @@ class Server2:
 
     def create_node(self, altitude, selector_1_down, selector_2_down, selector_1_up, selector_2_up):
 
-        parent = self.min_selectors_up(False, selector_1_up, selector_2_up, None)
+        parent = self.min_selectors_up(False, selector_1_up, selector_2_up, selector_1_down, selector_2_down, None)
 
         if parent.altitude < altitude:
             parent = None
+            selector_1_down = selector_1_up
+            selector_2_down = selector_2_up
 
         # STEP 1) Create the node and link the node to his parent and to his childs
-        selector_1_down.unbind_parent()
-        selector_2_down.unbind_parent()
+        if not selector_1_down.is_root():
+            selector_1_down.unbind_parent()
+        if not selector_2_down.is_root():
+            selector_2_down.unbind_parent()
 
         current_node = Node(name="("+self.current_merge_name_1+","+self.current_merge_name_2+")*",
                                  altitude=altitude,
@@ -251,17 +256,19 @@ class Server2:
                                  right=selector_2_down)
 
         if parent is None:
-            #if selector_1_up is self.min_selectors_up(False, selector_1_up, selector_2_up, None)
-            selector_1_up = current_node
-            #else
-            selector_2_up = current_node
+            selector_1_up = selector_2_up = current_node
 
         return list((current_node, selector_1_down, selector_2_down, selector_1_up, selector_2_up))
 
-    def min_selectors_up(self, node_created, selector_1_up, selector_2_up, current_node):
+    def min_selectors_up(self, node_created, selector_1_up, selector_2_up, selector_1_down, selector_2_down, current_node):
         if node_created is False:
             #  If both are root => root is the next selector
-            if selector_1_up.altitude > selector_2_up.altitude:
+            if selector_1_up.altitude == selector_2_up.altitude:
+                if selector_1_up.altitude > selector_1_down.altitude:
+                    return selector_1_up
+                else:
+                    return selector_2_up
+            elif selector_1_up.altitude > selector_2_up.altitude:
                 return selector_2_up
             else:
                 return selector_1_up
