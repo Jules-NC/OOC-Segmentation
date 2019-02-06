@@ -2,11 +2,13 @@ from Code.Node import *
 from Code.Tree import *
 from Code.GraphPrinter import *
 
+
 class Block:
 
-    def __init__(self, graph, border, index):
+    def __init__(self, graph, border, index, file_name):
         self.border = border
         self.index = index
+        self.file_name = file_name
         self.tree = graph.do_QBT(self.border)
 
     def update_tree(self, new_subtree, leaves):
@@ -43,7 +45,7 @@ class Block:
 
         new_list.sort()
         self.tree = Tree(new_list)
-        print_tree(self.tree, "Block_"+str(self.index))
+        print_tree(self.tree, "Data/"+self.file_name, "Block_"+str(self.index))
 
     def get_subtree(self, leaves_name):
         return self.tree.leaves_subtree(leaves_name)

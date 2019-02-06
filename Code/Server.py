@@ -1,6 +1,6 @@
 from Code.Block import *
 from Code.Graph import *
-
+import os
 # New Server
 
 
@@ -34,7 +34,11 @@ class Server:
         self.all_edges = []
 
         # Beging output file
-        self.f = open(str(file_name), "w")
+        self.file_name = file_name
+        directory = "Data/"+str(self.file_name)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        self.f = open(directory+"/"+str(self.file_name)+".txt", "w")
 
         # Initiate all_blocks
         self.all_blocks = []
@@ -126,7 +130,7 @@ class Server:
         #
         border = self.define_border(index_x, index_y)
         graph = self.define_graph(index_x, index_y, weight)
-        return Block(graph, border, (index_y*self.num_x_blocks+index_x))
+        return Block(graph, border, (index_y*self.num_x_blocks+index_x), self.file_name)
 
     def merge_all(self, weights=[]):
         self.f.write("\n-------------------------------------------")

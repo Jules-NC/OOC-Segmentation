@@ -45,16 +45,16 @@ def write_QBT(tree, figsize=(10, 5)):
             writer.writerow(ligne)
 
 
-def print_tree(tree, name, figsize=(10, 5)):
+def print_tree(tree, file, name, figsize=(10, 5)):
     G = nx.Graph()
     listofedges = [(node.name, node.parent.name) for node in tree.nodes if node.parent is not None]
     G.add_edges_from(listofedges)
     pos = hierarchy_pos(G, listofedges[-1][1])
     plt.figure(figsize=figsize)
     nx.draw(G, pos=pos, with_labels=True)
-    plt.savefig("Data/"+name+".png")
+    plt.savefig(file+"/"+name+".png")
 
-    plt.show()
+    #plt.show()
 
 
 def print_three_trees(trees, figsize=(10, 5)):
