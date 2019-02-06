@@ -25,6 +25,7 @@ class Graph:
 
         # Sort directly after being created to not do this in the main code, because we don't want to modify a Graph.
         self.sort()
+    # Define the graph for a block
 
     def sort(self):
         self.weights, self.edges = zip(*sorted(zip(self.weights, self.edges)))
@@ -61,21 +62,3 @@ class Graph:
         return res
 
 
-def generate_graph(imsize):
-    X = imsize.len_x
-    Y = imsize.len_y
-
-    edges = []
-    for y in range(Y):
-        for x in range(X):
-            pos = x + y * X
-            eq1 = x + 1 + y * X
-            if x + 1 < X:
-                edges.append((pos, eq1))
-            eq2 = x + (y + 1) * X
-            if y + 1 < Y:
-                edges.append((pos, eq2))
-    weights = [abs(int(i)) for i in np.random.normal(110, 40, len(edges))]
-
-    graph1 = Graph(n_vertices=X * Y, edges=edges, weights=weights)
-    return graph1
