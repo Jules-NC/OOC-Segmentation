@@ -178,3 +178,16 @@ class Node:
         
     def copy(self): 
         return Node(name=self.name, altitude=self.altitude)
+    
+     def set_Surface(self):
+        if self.left != None:
+            if self.right != None:
+                self.aire = self.left.set_Surface()+self.right.set_Surface()
+            else:
+                self.aire = self.left.set_Surface()
+        else:
+            if self.right != None:
+                self.aire = self.right.set_Surface()
+            else:
+                self.aire = 1
+        return self.aire
