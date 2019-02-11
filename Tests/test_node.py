@@ -1,4 +1,4 @@
-# -*-coding:Latin-1 -*  #Evite les erreurs Ã  la CON de Spyder pour l'ESIEE
+# -*-coding:Latin-1 -*  #Evite les erreurs ï¿½  la CON de Spyder pour l'ESIEE
 import pytest
 from Code.Node import *
 
@@ -142,8 +142,8 @@ def test_add_delete_child():
     #   Test the "overflow add
     node_10.delete_child(node_9)
     node_10.add_child(node_8)
-    node_10.delete_child(node_9)    # Ne sert Ã  rien mais doit marcher
-    node_10.delete_child(node_9)    # Ne sert Ã  rien mais doit marcher
+    node_10.delete_child(node_9)    # Ne sert ï¿½  rien mais doit marcher
+    node_10.delete_child(node_9)    # Ne sert ï¿½  rien mais doit marcher
 
     #   Test for the proper deletion (left then right) and the proper addition (left then right)
     assert node_10.left is node_8
@@ -244,3 +244,27 @@ def test_is_leaf():
     assert node_1.is_leaf() is True
     node_2 = Node(name="II", altitude=13350, left=node_1)
     assert node_2.is_leaf() is False
+
+def test_set_surface():
+    node_1 = Node(name="A", altitude=0)
+    node_2 = Node(name="B", altitude=0)
+    node_3 = Node(name="AB", altitude=10)
+    
+    node_3.bind_child(node_1)
+    node_3.bind_child(node_2)
+    
+    #cas normal
+    node_3.set_surface()
+    assert node_1.surface == 1
+    assert node_2.surface == 1
+    assert node_3.surface == 2
+
+
+    node_3.delete_child(node_2)
+    node_3.set_surface()
+    assert node_3.surface == 1
+    assert node_1.surface == 1
+
+    node_3.delete_child(node_1)
+    node_3.set_surface()
+    assert node_3.surface == 1 #node 3 n'a plus d'enfant et devient child
