@@ -106,3 +106,23 @@ def coords_ibloc_to_iimage(node, border):
     x1 += border.x1
     y1 += border.y1
     node.name = y1 * IMAGE.len_x + x1
+
+def get_leafs_border(self,position):
+    res = []
+    if (position == "HAUT"):
+        for x in range (0,self.x2-self.x1+1):
+            x3 = x+self.x1
+            res.append(self.y1 * IMAGE.len_x + x3)
+    if (position == "BAS"):
+        for x in range (0,self.x2-self.x1+1):
+            x3 = x+self.x1
+            res.append(self.y2 * IMAGE.len_x + x3) 
+    if (position == "GAUCHE"):
+        for y in range (0,self.y2-self.y1+1):
+            y3 = y+self.y1
+            res.append(y3 * IMAGE.len_x + self.x1)
+    if (position == "DROITE"):
+        for y in range (0,self.y2-self.y1+1):
+            y3 = y+self.y1
+            res.append(y3 * IMAGE.len_x + self.x2)
+    return res
