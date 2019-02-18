@@ -150,3 +150,15 @@ class Server:
             return self.selector_1_up
         else:
             return self.selector_2_up
+
+        
+    def BorderBranch(self,qbf,border,position):
+        """
+        border2 est une classe de 2 listes de leafs qui se trouve sur la bordure des 2 blocs
+        """
+        leafslist = border.get_leafs_border(position)
+        borderBranch = []
+        for i in range (len(leafslist)):
+            b = qbf.subtree(leafslist[i]).nodes
+            [borderBranch.append(node) for node in b if node not in borderBranch]
+        return Tree(borderBranch)
