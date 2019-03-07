@@ -15,13 +15,14 @@ class Tree:
         """
         return self.root.rec_height(0)
 
-    def find_leaf(self, leaf_name):
+    def find_node(self, leaf_name):
         for node in self.nodes:
             if node.name == leaf_name:
                 return node
+        return None
 
     def leaf_subtree(self, leaf_name):
-        ref = self.find_leaf(leaf_name)
+        ref = self.find_node(leaf_name)
         # Create the sublist
         boundary = []
         while ref is not None:
@@ -34,12 +35,12 @@ class Tree:
     def leaves_subtree(self, leaves_name):
         boundary = []
         for l in leaves_name:
-            ref = self.find_leaf(l)
+            ref = self.find_node(l)
             # Create the sublist
             while ref is not None and ref not in boundary:
                 boundary.append(ref.copy())
                 ref = ref.parent
-            ref = self.find_leaf(l)
+            ref = self.find_node(l)
             while ref is not None:
                 if not ref.is_root():
                     n = boundary.index(ref.copy())

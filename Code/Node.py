@@ -56,19 +56,31 @@ class Node:
         return max(left, right) + 1
 
     def add_child(self, node):
-        """Add the Node node as a child of self if one of the childs of self is
+        """Add the Node node as a child of self if one of the children of self is
         None. It will assign the left child first, and the right child if the
         left child already exists"""
-        assert self.can_add_child() is True, "The parent must have one child 'left'..."
+        assert self.can_add_child() is True
 
         if self.left is None:
             self.left = node
         elif self.right is None:
             self.right = node
 
+    def other_child(self, child):
+        if child is not None:
+            if self.left is not None:
+                if self.left.name == child.name:
+                    return self.right
+            if self.right is not None:
+                if self.right.name == child.name:
+                    return self.left
+        else:
+            return -1
+
     def child_exist(self, other):
-        if self.left == other or self.right == other:
-            return True
+        if other is not None:
+            if self.left == other or self.right == other:
+                return True
         else:
             return False
 
@@ -85,7 +97,7 @@ class Node:
             return False
 
     def bind_parent(self, node):
-        assert self.parent is None, "The parent must exist"
+        # assert self.parent is None, "The parent must exist"
         assert node != self, "The parent must not be the current node"
         self.parent = node
         self.parent.add_child(self)
@@ -178,3 +190,16 @@ class Node:
         
     def copy(self): 
         return Node(name=self.name, altitude=self.altitude)
+
+    def copy_all(self):
+        parent = None
+        left = None
+        right = None
+        if not self.is_root():
+            parent = self.parent.name
+        if self.left is not None:
+            left = self.left.name
+        if self.right is not None:
+            right = self.right.name
+
+        return [self.altitude, self.name, parent, left, right]
