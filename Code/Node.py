@@ -24,6 +24,9 @@ class Node:
         """
         self.name = name
         self.altitude = altitude
+        self.aire = None
+        self.hauteur = None
+        self.volume = None
 
         self.parent = None
         if parent is not None:
@@ -153,9 +156,9 @@ class Node:
             parent name, "name", [altitude], {child 1 name, child 2 name}
         """
         res = "["
-        res += str(self.altitude) + ", "
+        res += "Altitude : "+str(self.altitude) + ", "
 
-        res += "'" + str(self.name) + "'" + ", "
+        res += "Nom de la Node : '" + str(self.name) + "'" + ", Node parent : "
         if self.parent is not None:
             res += "[" + str(self.parent.name) + "], "
         else:
@@ -163,17 +166,29 @@ class Node:
 
         # A and not B
         if self.left is not None and self.right is None:
-            res += "{" + str(self.left.name) + ", None}"
+            res += "Nodes enfants : {" + str(self.left.name) + ", None}"
         # A and B
         elif self.left is not None and self.right is not None:
-            res += "{" + str(self.left.name) + ", " + str(self.right.name) + "}"
+            res += "Nodes enfants : {" + str(self.left.name) + ", " + str(self.right.name) + "}"
         # not A and B
         elif self.left is None and self.right is not None:
-            res += "{None, " + str(self.right.name) + "}"
+            res += "Nodes enfants : {None, " + str(self.right.name) + "}"
         # not A and not B
         else:
-            res += "{None, None}"
-        res += "]"
+            res += "Nodes enfants : {None, None}"
+        if self.hauteur is not None:
+            res +="Hauteur : "+str(self.hauteur)+","
+        else:
+            res +="Hauteur : None,"
+        if self.aire is not None:
+            res +="Aire : "+str(self.aire)
+        else:
+            res +="Aire : None"
+        if self.volume != None:
+            res +="Volume : "+str(self.volume)
+        else:
+            res +="Volume : None"
+        res+="]"
         return res
         
     def copy(self): 
@@ -191,3 +206,41 @@ class Node:
             else:
                 self.aire = 1
         return self.aire
+    
+    def set_Hauteur(self):
+        if self.left != None:
+            if self.right != None:
+                self.hauteur = max(self.left.set_Hauteur(),self.right.set_Hauteur())+1
+            else:
+                self.hauteur = self.left.set_Hauteur()+1
+        else:
+            if self.right != None:
+                self.hauteur = self.right.set_Hauteur()+1
+            else:
+                self.hauteur = 1
+        return self.hauteur
+    
+    def set_Volume(self):
+        if self.aire!= None and self.hauteur!=None:
+            self.volume = self.aire*self.hauteur
+        if self.left != None:
+            self.left.set_Volume()
+        if self.right != None:
+            self.right.set_Volume()
+        return self.volume
+                
+                
+    def update_Hauteur(self):
+        if self.hauteur != None:
+            self.hauteur=-1
+        if self.left != None:
+            if self.right != None:
+                self.hauteur = max(self.hauteur,max(self.left.update_Hauteur(),self.right.update_Hauteur())+1)
+            else:
+                self.hauteur = max(self.hauteur,self.left.update_Hauteur()+1)
+        else:
+            if self.right != None:
+                self.hauteur = max(self.hauteur,self.right.update_Hauteur()+1)
+            else:
+                self.hauteur = 1
+        return self.hauteur
