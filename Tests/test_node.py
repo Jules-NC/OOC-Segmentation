@@ -268,3 +268,18 @@ def test_set_surface():
     node_3.delete_child(node_1)
     node_3.set_surface()
     assert node_3.surface == 1 #node 3 n'a plus d'enfant et devient child
+    
+ def test_attributs
+    node_ABCD = Node("Node_ABCD",None,None,None,None)
+    node_AB = Node("Node_AB",None,node_ABCD,None,None)
+    node_A = Node("Node_A",None,node_AB,None,None)
+    node_DC = Node("Node_DC",None,node_ABCD,None,None)
+    node_DE = Node("Node_DE",None,node_DC,None,None)
+    node_D = Node("Node_D",None,node_DE,None,None)
+    node_B = Node("Node_B",None,node_AB,None,None)
+    node_C = Node("Node_C",None,node_DC,None,None)
+    tree_1 = Tree([node_AB,node_A,node_B,node_C,node_ABCD,node_DE,node_D,node_DC])
+    node_ABCD.set_Surface()
+    node_ABCD.set_Hauteur()
+    node_ABCD.set_Volume()
+    print(tree_1)
