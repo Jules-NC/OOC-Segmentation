@@ -244,3 +244,23 @@ class Node:
             else:
                 self.hauteur = 1
         return self.hauteur
+    
+        def getAttribute(self):
+        if self.is_root() or self.parent.altitude!=self.altitude:
+            if self.left!=None:
+                self.left.getAttribute()
+            if self.right!=None:
+                self.right.getAttribute()
+            self.altitude=self.altitude #Soucis
+        else:
+            maxi=0
+            if self.left!=None:
+                v = self.left.getAttribute()
+                if v>maxi:
+                    maxi=v
+            if self.right!=None:
+                v = self.right.getAttribute()
+                if v>maxi:
+                    maxi=v
+            self.altitude = maxi
+        return self.altitude
