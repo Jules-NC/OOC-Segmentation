@@ -70,3 +70,10 @@ class Tree:
         for node in self.nodes:
             res += str(node) + "\n"
         return res
+    
+     def computeMergeAttributeMST(self):
+        list_edge=[]
+        for node in self.nodes:
+            if not node.is_leaf():
+                list_edge.append(min(node.left.altitude,node.right.altitude))
+        #creer graphe soucis
