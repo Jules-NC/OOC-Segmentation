@@ -32,6 +32,8 @@ class Tree:
             boundary[i].bind_parent(boundary[i+1])
         return Tree(boundary)
 
+
+
     def leaves_subtree(self, leaves_name):
         boundary = []
         for l in leaves_name:
@@ -50,6 +52,14 @@ class Tree:
                 ref = ref.parent
         boundary.sort()
         return Tree(boundary)
+
+    def computeMergeAttributeMST(self):
+        list_edge = []
+        for node in self.nodes:
+            if not node.is_leaf():
+                list_edge.append(node.G_node())
+        # creer graphe soucis
+        return Tree(list_edge)
 
     def __str__(self):
         """

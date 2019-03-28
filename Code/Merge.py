@@ -10,7 +10,7 @@ class Merge:
         # Number of blocks by column and by row
         self.num_x_blocks = x_blocks
         self.num_y_blocks = y_blocks
-
+        self.delta = self.delta1 = self.delta2 = 0
         # Size of the image x and y
         self.img_x = img_x
         self.img_y = img_y
@@ -105,6 +105,9 @@ class Merge:
             # Computing the border tree
             new_tree_nodes = self.compute(altitudes[i], selector_1_down, selector_2_down, selector_1_up, selector_2_up)
 
+            # Updating Hauter
+            new_tree_nodes.root.update_hauteur()
+
             # Updating blocks with their respective boundary trees
             # update_block_1 = new_tree_nodes.leaves_subtree(nodes_1)
             block_1.update_tree(new_tree_nodes, nodes_1)
@@ -116,6 +119,7 @@ class Merge:
         # Initializing variables
         new_tree_nodes = []
         node_created = False
+        self.delta = self.delta_1 = self.delta_2 = 0
         current_node = None
         # do the merging while both selectors are not the same (the root)
         while (selector_1_up is not None and selector_2_up is not None) and not node_created:
@@ -181,6 +185,10 @@ class Merge:
                     current_node.bind_parent(self.min_selectors_up(node_created, selector_1_up, selector_2_up,
                                                                    selector_1_down, selector_2_down, current_node))
 
+                    # Updating Surface
+
+                    current_node.parent.aire = current_node.parent.aire+self.delta
+
                     new_tree_nodes.append(current_node)
 
                     [selector_1_down, selector_1_up] = self.update_selector(node_created, selector_1_down,
@@ -217,6 +225,10 @@ class Merge:
                                  parent=parent,
                                  left=selector_1_down,
                                  right=selector_2_down)
+        current_node.set_Surface()
+        current_node.hauteur = max(selector_1_down.hauteur,selector_2_down.hauteur)+1
+        self.delta1 = current_node.aire - selector_1_down.aire
+        self.delta2 = current_node.aire - selector_2_down.aire
 
         if parent is None:
             selector_1_up = selector_2_up = current_node
@@ -237,14 +249,19 @@ class Merge:
                 return selector_1_up
         else:
             if current_node.is_root() and current_node is selector_1_up:
+                self.delta = self.delta2
                 return selector_2_up
 
             if current_node.is_root() and current_node is selector_2_up:
+                self.delta = self.delta1
                 return selector_1_up
 
             if selector_1_up.altitude > selector_2_up.altitude:
+                self.delta = self.delta2
                 return selector_2_up
             else:
+
+                self.delta = self.delta1
                 return selector_1_up
 
     def update_selector(self, node_created, selector_down, selector_up, altitude):

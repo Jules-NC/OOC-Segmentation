@@ -10,6 +10,7 @@ class Block:
         self.index = index
         self.file_name = file_name
         self.tree = graph.do_QBT(self.border)
+        self.tree.root.call_all_attribute_update()
 
     def update_tree(self, new_subtree, leaves):
         new_list = self.tree.nodes

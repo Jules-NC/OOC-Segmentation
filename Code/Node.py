@@ -37,6 +37,10 @@ class Node:
         if right is not None:
             self.bind_child(right)
 
+        self.aire = None
+        self.hauteur = None
+        self.volume = None
+
     def is_leaf(self):
         """True if the Node is a is_leaf => childs are None"""
         return self.left is None and self.right is None
@@ -98,7 +102,7 @@ class Node:
 
     def bind_parent(self, node):
         # assert self.parent is None, "The parent must exist"
-        assert node != self, "The parent must not be the current node"
+        assert node is not self, "The parent must not be the current node"
         self.parent = node
         self.parent.add_child(self)
 
@@ -111,7 +115,7 @@ class Node:
         self.parent = None
 
     def bind_child(self, node):
-        assert node != self, "The child must not be the current node"
+        assert node is not self, "The child must not be the current node"
         node.bind_parent(self)
 
     def unbind_child(self, child):
@@ -165,9 +169,9 @@ class Node:
             parent name, "name", [altitude], {child 1 name, child 2 name}
         """
         res = "["
-        res += str(self.altitude) + ", "
+        res += "Altitude : " + str(self.altitude) + ", "
 
-        res += "'" + str(self.name) + "'" + ", "
+        res += "Nom de la Node : '" + str(self.name) + "'" + ", Node parent : "
         if self.parent is not None:
             res += "[" + str(self.parent.name) + "], "
         else:
@@ -175,21 +179,45 @@ class Node:
 
         # A and not B
         if self.left is not None and self.right is None:
-            res += "{" + str(self.left.name) + ", None}"
+            res += "Nodes enfants : {" + str(self.left.name) + ", None}"
         # A and B
         elif self.left is not None and self.right is not None:
-            res += "{" + str(self.left.name) + ", " + str(self.right.name) + "}"
+            res += "Nodes enfants : {" + str(self.left.name) + ", " + str(self.right.name) + "}"
         # not A and B
         elif self.left is None and self.right is not None:
-            res += "{None, " + str(self.right.name) + "}"
+            res += "Nodes enfants : {None, " + str(self.right.name) + "}"
         # not A and not B
         else:
-            res += "{None, None}"
+            res += "Nodes enfants : {None, None}"
+        if self.hauteur is not None:
+            res += "Hauteur : " + str(self.hauteur) + ","
+        else:
+            res += "Hauteur : None,"
+        if self.aire is not None:
+            res += "Aire : " + str(self.aire)
+        else:
+            res += "Aire : None"
+        if self.volume != None:
+            res += "Volume : " + str(self.volume)
+        else:
+            res += "Volume : None"
         res += "]"
         return res
         
-    def copy(self): 
-        return Node(name=self.name, altitude=self.altitude)
+    def copy(self):
+        n = Node(name=self.name, altitude=self.altitude)
+        n.aire = self.aire
+        n.hauteur = self.hauteur
+        n.volume = self.volume
+        return n
+
+    def G_node(self):
+        n = Node(name=self.name, altitude=min(self.left.altitude, self.right.altitude), left=self.left, right=self.right,
+                 parent=self.parent)
+        n.aire = min(self.left.aire, self.right.aire)
+        n.hauteur = min(self.left.hauteur, self.right.hauteur)
+        n.volume = min(self.left.volume, self.right.volume)
+        return n
 
     def copy_all(self):
         parent = None
@@ -203,3 +231,84 @@ class Node:
             right = self.right.name
 
         return [self.altitude, self.name, parent, left, right]
+
+    def set_Surface(self):
+        if self.left is not None:
+            if self.right is not None:
+                self.aire = self.left.set_Surface() + self.right.set_Surface()
+            else:
+                self.aire = self.left.set_Surface()
+        else:
+            if self.right is not None:
+                self.aire = self.right.set_Surface()
+            else:
+                self.aire = 1
+        return self.aire
+
+    def set_Hauteur(self):
+        if self.left is not None:
+            if self.right is not None:
+                self.hauteur = max(self.left.set_Hauteur(), self.right.set_Hauteur()) + 1
+            else:
+                self.hauteur = self.left.set_Hauteur() + 1
+        else:
+            if self.right is not None:
+                self.hauteur = self.right.set_Hauteur() + 1
+            else:
+                self.hauteur = 1
+        return self.hauteur
+
+    def set_volume(self):
+        if self.aire is not None and self.hauteur is not None:
+            self.volume = self.aire * self.hauteur
+        if self.left is not None:
+            self.left.set_volume()
+        if self.right is not None:
+            self.right.set_volume()
+        return self.volume
+
+    def update_hauteur(self):
+        if self.hauteur is not None:
+            self.hauteur = -1
+        if self.left is not None:
+            if self.right is not None:
+                self.hauteur = max(self.hauteur, max(self.left.update_hauteur(), self.right.update_hauteur()) + 1)
+            else:
+                self.hauteur = max(self.hauteur, self.left.update_hauteur() + 1)
+        else:
+            if self.right is not None:
+                self.hauteur = max(self.hauteur, self.right.update_hauteur() + 1)
+            else:
+                self.hauteur = 1
+        return self.hauteur
+    
+    def call_all_attribute_update(self):
+        s = self.set_Surface()
+        h = self.set_Hauteur()
+        v = self.set_volume()
+        return [s, h, v]
+    
+    def get_attribute(self):
+        if self.is_root() or self.parent.altitude is not self.altitude:
+            if self.left is not None:
+                self.left.get_attribute()
+            if self.right is not None:
+                self.right.get_attribute()
+            v = self.call_all_attribute_update()
+            self.aire = v[0]
+            self.hauteur = v[1]
+            self.volume = v[2]
+        else:
+            maxi = [0, 0, 0]
+            if self.left is not None:
+                v = self.get_attribute()
+                maxi = [max(v[i], maxi[i]) for i in range(len(v))]
+            if self.right is not None:
+                maxi = [max(v[i], maxi[i]) for i in range(len(v))]
+                if v > maxi:
+                    maxi = v
+            self.aire = maxi[0]
+            self.hauteur = maxi[1]
+            self.volume = maxi[2]
+
+        return self.call_all_attribute_update()
