@@ -50,10 +50,9 @@ class Server:
         merge = Merge(self.all_blocks, weights, self.img_x, self.img_y, self.num_x_blocks, self.num_y_blocks,
                       self.x_length, self.y_length, self.f)
         merge.merge_all()
-        self.print_all()
-        self.f.close()
         self.refactor()
         self.print_all()
+        self.f.close()
 
     def refactor(self):
         wrong_nodes = []
@@ -106,7 +105,7 @@ class Server:
 
     def print_all(self):
         for b in self.all_blocks:
-            b.print_tree()
+            b.block_print_tree()
 
     def generate_all_edges(self):
         # 4-connected edges

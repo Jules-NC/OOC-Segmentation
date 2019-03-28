@@ -186,7 +186,8 @@ class Merge:
                                                                    selector_1_down, selector_2_down, current_node))
 
                     # Updating Surface
-
+                    print(current_node.parent)
+                    print(self.delta)
                     current_node.parent.aire = current_node.parent.aire+self.delta
 
                     new_tree_nodes.append(current_node)
