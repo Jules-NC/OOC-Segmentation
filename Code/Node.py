@@ -41,6 +41,10 @@ class Node:
         self.hauteur = None
         self.volume = None
 
+        # watershed
+        self.minima = -1
+        self.color = 0
+
     def is_leaf(self):
         """True if the Node is a is_leaf => childs are None"""
         return self.left is None and self.right is None
@@ -131,7 +135,10 @@ class Node:
         if self.is_root():
             return self
         else:
-            return self.parent.root()
+            node = self
+            while node.parent is not None:
+                node = node.parent
+            return node
 
     def is_root(self):
         if self.parent is None:
@@ -139,12 +146,13 @@ class Node:
         else:
             return False
 
-    def subtree(self, list_):
-        """Recursively add the parent of self to a list_ list_ => subtree"""
-        if self.parent is None:
-            return list_
-        list_.append(self)
-        return self.parent.subtree(list_)
+    def subtree(self):
+        list_ = []
+        node = self
+        while node is not None:
+            list_.append(node)
+            node = node.parent
+        return list_
 
     def __eq__(self, other):
         if other is None:
@@ -203,7 +211,14 @@ class Node:
             res += "Volume : None"
         res += "]"
         return res
-        
+
+    def is_child(self, child):
+        if self.left == child:
+            return self.left
+        elif self.right == child:
+            return self.right
+        return None
+
     def copy(self):
         n = Node(name=self.name, altitude=self.altitude)
         n.aire = self.aire
@@ -220,6 +235,9 @@ class Node:
         return n
 
     def copy_all(self):
+        n = Node(name=self.name, altitude=self.altitude, left=self.left,)
+
+    def copy_names(self):
         parent = None
         left = None
         right = None

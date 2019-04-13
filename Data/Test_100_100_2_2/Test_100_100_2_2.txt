@@ -1,0 +1,439 @@
+
+ TEST100_100_2_2
+
+
+Initiating graph...
+Initiating blocks...
+Block (0,0)
+Initial node: 0
+Nº of weights4900
+Block 0,0 (Original)
+
+Block (1,0)
+Initial node: 50
+Nº of weights4900
+Block 1,0 (Original)
+
+Block (0,1)
+Initial node: 5000
+Nº of weights4900
+Block 0,1 (Original)
+
+Block (1,1)
+Initial node: 5050
+Nº of weights4900
+Block 1,1 (Original)
+
+Merging blocks...
+-------------------------------------------
+Block 0,0 (Final)
+ Block 0 and Block 1
+	Node 3349 and Node 3350
+		At altitude 2
+	Node 1849 and Node 1850
+		At altitude 5
+	Node 4149 and Node 4150
+		At altitude 5
+	Node 4849 and Node 4850
+		At altitude 8
+	Node 3049 and Node 3050
+		At altitude 9
+	Node 2249 and Node 2250
+		At altitude 14
+	Node 1749 and Node 1750
+		At altitude 16
+	Node 4449 and Node 4450
+		At altitude 25
+	Node 749 and Node 750
+		At altitude 36
+	Node 4749 and Node 4750
+		At altitude 40
+	Node 349 and Node 350
+		At altitude 42
+	Node 2349 and Node 2350
+		At altitude 44
+	Node 2049 and Node 2050
+		At altitude 52
+	Node 2649 and Node 2650
+		At altitude 53
+	Node 1049 and Node 1050
+		At altitude 57
+	Node 4249 and Node 4250
+		At altitude 67
+	Node 4649 and Node 4650
+		At altitude 73
+	Node 4049 and Node 4050
+		At altitude 93
+	Node 2549 and Node 2550
+		At altitude 99
+	Node 549 and Node 550
+		At altitude 101
+	Node 1449 and Node 1450
+		At altitude 123
+	Node 1249 and Node 1250
+		At altitude 136
+	Node 49 and Node 50
+		At altitude 140
+	Node 1149 and Node 1150
+		At altitude 142
+	Node 949 and Node 950
+		At altitude 143
+	Node 3149 and Node 3150
+		At altitude 147
+	Node 1549 and Node 1550
+		At altitude 148
+	Node 3949 and Node 3950
+		At altitude 156
+	Node 149 and Node 150
+		At altitude 159
+	Node 649 and Node 650
+		At altitude 164
+	Node 2949 and Node 2950
+		At altitude 164
+	Node 2749 and Node 2750
+		At altitude 170
+	Node 449 and Node 450
+		At altitude 175
+	Node 2149 and Node 2150
+		At altitude 177
+	Node 249 and Node 250
+		At altitude 184
+	Node 3249 and Node 3250
+		At altitude 184
+	Node 3549 and Node 3550
+		At altitude 186
+	Node 849 and Node 850
+		At altitude 187
+	Node 4949 and Node 4950
+		At altitude 187
+	Node 1949 and Node 1950
+		At altitude 192
+	Node 2849 and Node 2850
+		At altitude 199
+	Node 2449 and Node 2450
+		At altitude 204
+	Node 4349 and Node 4350
+		At altitude 204
+	Node 4549 and Node 4550
+		At altitude 208
+	Node 3649 and Node 3650
+		At altitude 210
+	Node 3449 and Node 3450
+		At altitude 212
+	Node 1349 and Node 1350
+		At altitude 223
+	Node 3849 and Node 3850
+		At altitude 241
+	Node 3749 and Node 3750
+		At altitude 244
+	Node 1649 and Node 1650
+		At altitude 249
+Refactoring	Removing all nodes Block 0 and Block 2
+	Node 4926 and Node 5026
+		At altitude 0
+	Node 4902 and Node 5002
+		At altitude 4
+	Node 4909 and Node 5009
+		At altitude 8
+	Node 4934 and Node 5034
+		At altitude 9
+	Node 4924 and Node 5024
+		At altitude 10
+	Node 4921 and Node 5021
+		At altitude 21
+	Node 4919 and Node 5019
+		At altitude 36
+	Node 4949 and Node 5049
+		At altitude 44
+	Node 4914 and Node 5014
+		At altitude 47
+	Node 4913 and Node 5013
+		At altitude 51
+	Node 4917 and Node 5017
+		At altitude 55
+	Node 4937 and Node 5037
+		At altitude 56
+	Node 4941 and Node 5041
+		At altitude 57
+	Node 4940 and Node 5040
+		At altitude 63
+	Node 4911 and Node 5011
+		At altitude 67
+	Node 4942 and Node 5042
+		At altitude 69
+	Node 4936 and Node 5036
+		At altitude 71
+	Node 4938 and Node 5038
+		At altitude 71
+	Node 4922 and Node 5022
+		At altitude 72
+	Node 4927 and Node 5027
+		At altitude 76
+	Node 4905 and Node 5005
+		At altitude 81
+	Node 4916 and Node 5016
+		At altitude 81
+	Node 4918 and Node 5018
+		At altitude 86
+	Node 4925 and Node 5025
+		At altitude 99
+	Node 4928 and Node 5028
+		At altitude 107
+	Node 4908 and Node 5008
+		At altitude 115
+	Node 4929 and Node 5029
+		At altitude 115
+	Node 4935 and Node 5035
+		At altitude 116
+	Node 4947 and Node 5047
+		At altitude 116
+	Node 4931 and Node 5031
+		At altitude 128
+	Node 4939 and Node 5039
+		At altitude 129
+	Node 4944 and Node 5044
+		At altitude 140
+	Node 4945 and Node 5045
+		At altitude 143
+	Node 4946 and Node 5046
+		At altitude 149
+	Node 4900 and Node 5000
+		At altitude 162
+	Node 4907 and Node 5007
+		At altitude 168
+	Node 4923 and Node 5023
+		At altitude 170
+	Node 4901 and Node 5001
+		At altitude 176
+	Node 4930 and Node 5030
+		At altitude 186
+	Node 4904 and Node 5004
+		At altitude 195
+	Node 4910 and Node 5010
+		At altitude 205
+	Node 4903 and Node 5003
+		At altitude 220
+	Node 4932 and Node 5032
+		At altitude 221
+	Node 4943 and Node 5043
+		At altitude 221
+	Node 4948 and Node 5048
+		At altitude 225
+	Node 4915 and Node 5015
+		At altitude 230
+	Node 4912 and Node 5012
+		At altitude 237
+	Node 4920 and Node 5020
+		At altitude 237
+	Node 4933 and Node 5033
+		At altitude 248
+	Node 4906 and Node 5006
+		At altitude 251
+Refactoring	Removing all nodes
+Block 1,0 (Final)
+ Block 1 and Block 3
+	Node 4987 and Node 5087
+		At altitude 3
+	Node 4995 and Node 5095
+		At altitude 18
+	Node 4992 and Node 5092
+		At altitude 26
+	Node 4988 and Node 5088
+		At altitude 27
+	Node 4961 and Node 5061
+		At altitude 29
+	Node 4999 and Node 5099
+		At altitude 32
+	Node 4970 and Node 5070
+		At altitude 33
+	Node 4994 and Node 5094
+		At altitude 33
+	Node 4956 and Node 5056
+		At altitude 47
+	Node 4958 and Node 5058
+		At altitude 51
+	Node 4972 and Node 5072
+		At altitude 60
+	Node 4959 and Node 5059
+		At altitude 66
+	Node 4990 and Node 5090
+		At altitude 67
+	Node 4976 and Node 5076
+		At altitude 71
+	Node 4991 and Node 5091
+		At altitude 72
+	Node 4951 and Node 5051
+		At altitude 73
+	Node 4962 and Node 5062
+		At altitude 75
+	Node 4967 and Node 5067
+		At altitude 76
+	Node 4979 and Node 5079
+		At altitude 76
+	Node 4984 and Node 5084
+		At altitude 103
+	Node 4985 and Node 5085
+		At altitude 113
+	Node 4966 and Node 5066
+		At altitude 115
+	Node 4983 and Node 5083
+		At altitude 116
+	Node 4968 and Node 5068
+		At altitude 120
+	Node 4952 and Node 5052
+		At altitude 127
+	Node 4954 and Node 5054
+		At altitude 127
+	Node 4978 and Node 5078
+		At altitude 136
+	Node 4989 and Node 5089
+		At altitude 143
+	Node 4975 and Node 5075
+		At altitude 146
+	Node 4982 and Node 5082
+		At altitude 147
+	Node 4965 and Node 5065
+		At altitude 150
+	Node 4998 and Node 5098
+		At altitude 151
+	Node 4980 and Node 5080
+		At altitude 156
+	Node 4950 and Node 5050
+		At altitude 166
+	Node 4986 and Node 5086
+		At altitude 172
+	Node 4981 and Node 5081
+		At altitude 174
+	Node 4973 and Node 5073
+		At altitude 189
+	Node 4960 and Node 5060
+		At altitude 199
+	Node 4963 and Node 5063
+		At altitude 201
+	Node 4964 and Node 5064
+		At altitude 204
+	Node 4993 and Node 5093
+		At altitude 209
+	Node 4977 and Node 5077
+		At altitude 215
+	Node 4955 and Node 5055
+		At altitude 217
+	Node 4971 and Node 5071
+		At altitude 217
+	Node 4957 and Node 5057
+		At altitude 220
+	Node 4997 and Node 5097
+		At altitude 229
+	Node 4953 and Node 5053
+		At altitude 239
+	Node 4974 and Node 5074
+		At altitude 253
+	Node 4996 and Node 5096
+		At altitude 253
+	Node 4969 and Node 5069
+		At altitude 254
+Refactoring	Removing all nodes
+Block 0,1 (Final)
+ Block 2 and Block 3
+	Node 5349 and Node 5350
+		At altitude 1
+	Node 5649 and Node 5650
+		At altitude 12
+	Node 8649 and Node 8650
+		At altitude 17
+	Node 7649 and Node 7650
+		At altitude 23
+	Node 7749 and Node 7750
+		At altitude 32
+	Node 6849 and Node 6850
+		At altitude 34
+	Node 9849 and Node 9850
+		At altitude 35
+	Node 7849 and Node 7850
+		At altitude 39
+	Node 7949 and Node 7950
+		At altitude 44
+	Node 5749 and Node 5750
+		At altitude 45
+	Node 7349 and Node 7350
+		At altitude 45
+	Node 6449 and Node 6450
+		At altitude 53
+	Node 9949 and Node 9950
+		At altitude 54
+	Node 6049 and Node 6050
+		At altitude 57
+	Node 8449 and Node 8450
+		At altitude 60
+	Node 8749 and Node 8750
+		At altitude 61
+	Node 8849 and Node 8850
+		At altitude 66
+	Node 6749 and Node 6750
+		At altitude 73
+	Node 6349 and Node 6350
+		At altitude 85
+	Node 7549 and Node 7550
+		At altitude 86
+	Node 8349 and Node 8350
+		At altitude 86
+	Node 5249 and Node 5250
+		At altitude 87
+	Node 6549 and Node 6550
+		At altitude 92
+	Node 9249 and Node 9250
+		At altitude 92
+	Node 5449 and Node 5450
+		At altitude 97
+	Node 7449 and Node 7450
+		At altitude 107
+	Node 7149 and Node 7150
+		At altitude 115
+	Node 9749 and Node 9750
+		At altitude 122
+	Node 7249 and Node 7250
+		At altitude 125
+	Node 6149 and Node 6150
+		At altitude 126
+	Node 5849 and Node 5850
+		At altitude 127
+	Node 9449 and Node 9450
+		At altitude 151
+	Node 8249 and Node 8250
+		At altitude 152
+	Node 8949 and Node 8950
+		At altitude 153
+	Node 8549 and Node 8550
+		At altitude 160
+	Node 7049 and Node 7050
+		At altitude 164
+	Node 5049 and Node 5050
+		At altitude 166
+	Node 5949 and Node 5950
+		At altitude 180
+	Node 6949 and Node 6950
+		At altitude 187
+	Node 9649 and Node 9650
+		At altitude 195
+	Node 9049 and Node 9050
+		At altitude 197
+	Node 8049 and Node 8050
+		At altitude 200
+	Node 9349 and Node 9350
+		At altitude 200
+	Node 9549 and Node 9550
+		At altitude 201
+	Node 6649 and Node 6650
+		At altitude 204
+	Node 5549 and Node 5550
+		At altitude 230
+	Node 8149 and Node 8150
+		At altitude 232
+	Node 6249 and Node 6250
+		At altitude 234
+	Node 9149 and Node 9150
+		At altitude 238
+	Node 5149 and Node 5150
+		At altitude 242
+Refactoring	Removing all nodes
+Block 1,1 (Final)

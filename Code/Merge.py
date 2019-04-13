@@ -1,12 +1,12 @@
 from Code.Block import *
-
+import time
 # New Server
 
 
 class Merge:
     # New definition for the server
     # +image
-    def __init__(self, all_blocks, weights, img_x, img_y, x_blocks, y_blocks, x_length, y_length, file):
+    def __init__(self, all_blocks, weights, img_x, img_y, x_blocks, y_blocks, x_length, y_length, file, measurement):
         # Number of blocks by column and by row
         self.num_x_blocks = x_blocks
         self.num_y_blocks = y_blocks
@@ -29,6 +29,8 @@ class Merge:
         self.all_blocks = all_blocks
         self.weights = weights
 
+        self.measurement = measurement
+
     def merge_all(self):
         self.f.write("\n-------------------------------------------")
         for y in range(self.num_y_blocks):
@@ -43,7 +45,7 @@ class Merge:
                 # First merge horizontally
                 if x < self.num_x_blocks-1:
                     block_2 = self.all_blocks[index+1]
-                    print(" Block " + str(index) + " and Block " + str(index+1))
+                    self.f.write(" Block " + str(index) + " and Block " + str(index+1))
                     # define border
                     edges = []
                     for j in range(self.y_length):
@@ -58,7 +60,7 @@ class Merge:
 
                 if y < self.num_y_blocks-1:
                     block_2 = self.all_blocks[index + self.num_x_blocks]
-                    print(" Block " + str(index) + " and Block " + str(index + self.num_x_blocks))
+                    self.f.write(" Block " + str(index) + " and Block " + str(index + self.num_x_blocks))
                     # define border
                     edges = []
                     for i in range(self.x_length):
@@ -70,12 +72,59 @@ class Merge:
 
                     self.merging(block_1, block_2, edges)
 
-                self.f.write("Nodes: \n")
-                self.f.write("Altitude Nodes Parent Left Right: \n")
-                for node in block_1.tree.nodes:
-                    self.f.write("{0}\n".format(node))
+    def refactoring(self, block_1, block_2, nodes_1, nodes_2):
+        self.f.write("\nRefactoring")
+        t = time.time()
+        wrong_nodes = []
+        copy_wrong_nodes = []
+        subtree_1 = block_1.tree.subtree(nodes_1)
+        subtree_2 = block_1.tree.subtree(nodes_2)
+        print(len(subtree_1))
+        for node1 in subtree_1:
+            n = node1.name
+            if n not in wrong_nodes:
+                if node1.left is None or node1.right is None:
+                    wrong_nodes.append(n)
+                    copy_wrong_nodes.append(node1.copy_names())
+
+        for node2 in subtree_2:
+            n = node2.name
+            if node2.left is None or node2.right is None:
+                if n not in wrong_nodes:
+                    wrong_nodes.append(n)
+                    copy_wrong_nodes.append(node2.copy_names())
+                else:
+                    i = wrong_nodes.index(n)
+                    if node2.left is not copy_wrong_nodes[i][3] and node2.left is not copy_wrong_nodes[i][4]:
+                        if copy_wrong_nodes[i][3] is None:
+                            copy_wrong_nodes[i][3] = node2.left
+                        else:
+                            copy_wrong_nodes[i][4] = node2.left
+                    if node2.right is not copy_wrong_nodes[i][3] and node2.right is not copy_wrong_nodes[i][4]:
+                        if copy_wrong_nodes[i][3] is None:
+                            copy_wrong_nodes[i][3] = node2.right
+                        else:
+                            copy_wrong_nodes[i][4] = node2.right
+        self.f.write("\tRemoving all nodes")
+
+        w1 = []
+        for w in copy_wrong_nodes:
+            if w[3] is None and w[4] is None:
+                w1.append(w)
+            if w[3] != w[4] and w[3] is not None and w[4] is not None:
+                w1.append(w)
+        for w in w1:
+            wrong_nodes.remove(w[1])
+            copy_wrong_nodes.remove(w)
+
+        block_1.remove_node(wrong_nodes)
+        block_2.remove_node(wrong_nodes)
+
+        t = time.time() - t
+        self.measurement.write("\n\tRefactoring time: " + str(t))
 
     def merging(self, block_1, block_2, edges):
+
         edges.sort(key=lambda edges: edges[2])
 
         nodes_1 = [edge[0] for edge in edges]
@@ -92,8 +141,8 @@ class Merge:
             self.current_merge_name_1 = str(edge[0])
             self.current_merge_name_2 = str(edge[1])
 
-            print("  Node " + str(self.current_merge_name_1) + " and Node " + str(self.current_merge_name_2))
-            print("   At altitude " + str(altitudes[i]))
+            self.f.write("\n\tNode " + str(self.current_merge_name_1) + " and Node " + str(self.current_merge_name_2))
+            self.f.write("\n\t\tAt altitude " + str(altitudes[i]))
 
             # Initiating selectors up and down
             selector_1_down = subtree_1.find_node(edge[0])
@@ -114,6 +163,7 @@ class Merge:
 
             # update_block_2 = new_tree_nodes.leaves_subtree(nodes_2)
             block_2.update_tree(new_tree_nodes, nodes_2)
+        self.refactoring(block_1, block_2, nodes_1, nodes_2)
 
     def compute(self, altitude, selector_1_down, selector_2_down, selector_1_up, selector_2_up):
         # Initializing variables
@@ -186,8 +236,8 @@ class Merge:
                                                                    selector_1_down, selector_2_down, current_node))
 
                     # Updating Surface
-                    print(current_node.parent)
-                    print(self.delta)
+                    # print(current_node.parent)
+                    # get_subtreeprint(self.delta)
                     current_node.parent.aire = current_node.parent.aire+self.delta
 
                     new_tree_nodes.append(current_node)
@@ -237,10 +287,15 @@ class Merge:
         return list((current_node, selector_1_down, selector_2_down, selector_1_up, selector_2_up))
 
     def min_selectors_up(self, node_created, selector_1_up, selector_2_up, selector_1_down, selector_2_down, current_node):
+
         if node_created is False:
             #  If both are root => root is the next selector
             if selector_1_up.altitude == selector_2_up.altitude:
-                if selector_1_up.name > selector_2_up.name:
+                s1 = str(selector_1_up.name)
+                s2 = str(selector_2_up.name)
+                s1 = int(s1[s1.find("(")+1: s1.find(",")])
+                s2 = int(s2[s2.find("(")+1: s2.find(",")])
+                if s1 > s2:
                     return selector_1_up
                 else:
                     return selector_2_up

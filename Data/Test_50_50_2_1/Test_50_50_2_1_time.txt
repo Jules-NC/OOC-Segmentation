@@ -1,0 +1,16 @@
+
+Generate all edges: 0.004154682159423828
+
+Generate Block(0,0): 0.08779144287109375
+Generate Block(0,0): 0.03378438949584961
+Generate All Blocks:0.1386711597442627
+
+	Refactoring time: 0.48398590087890625
+Merging total time: 0.9813473224639893
+--------------------------------------------
+Total time: 1.1241731643676758
+
+UPDATE TREE
+
+Block 0: 0.07377219200134277
+Block 1: 0.22721052169799805

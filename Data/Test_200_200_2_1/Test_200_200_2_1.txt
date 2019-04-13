@@ -1,0 +1,422 @@
+
+ TEST200_200_2_1
+
+
+Initiating graph...
+Initiating blocks...
+Block (0,0)
+Initial node: 0
+Nº of weights39700
+Block 0,0 (Original)
+
+Block (1,0)
+Initial node: 100
+Nº of weights39700
+Block 1,0 (Original)
+
+Merging blocks...
+-------------------------------------------
+Block 0,0 (Final)
+ Block 0 and Block 1
+	Node 11499 and Node 11500
+		At altitude 0
+	Node 21099 and Node 21100
+		At altitude 3
+	Node 19899 and Node 19900
+		At altitude 9
+	Node 34899 and Node 34900
+		At altitude 9
+	Node 27499 and Node 27500
+		At altitude 10
+	Node 2099 and Node 2100
+		At altitude 11
+	Node 13499 and Node 13500
+		At altitude 12
+	Node 16099 and Node 16100
+		At altitude 12
+	Node 32099 and Node 32100
+		At altitude 12
+	Node 36899 and Node 36900
+		At altitude 12
+	Node 3499 and Node 3500
+		At altitude 13
+	Node 15699 and Node 15700
+		At altitude 13
+	Node 19099 and Node 19100
+		At altitude 13
+	Node 30499 and Node 30500
+		At altitude 13
+	Node 37899 and Node 37900
+		At altitude 13
+	Node 29699 and Node 29700
+		At altitude 14
+	Node 299 and Node 300
+		At altitude 15
+	Node 15299 and Node 15300
+		At altitude 15
+	Node 16899 and Node 16900
+		At altitude 15
+	Node 31499 and Node 31500
+		At altitude 15
+	Node 6099 and Node 6100
+		At altitude 16
+	Node 34699 and Node 34700
+		At altitude 18
+	Node 2499 and Node 2500
+		At altitude 19
+	Node 17099 and Node 17100
+		At altitude 21
+	Node 6899 and Node 6900
+		At altitude 23
+	Node 19699 and Node 19700
+		At altitude 25
+	Node 22499 and Node 22500
+		At altitude 26
+	Node 39699 and Node 39700
+		At altitude 26
+	Node 23099 and Node 23100
+		At altitude 27
+	Node 8099 and Node 8100
+		At altitude 31
+	Node 4699 and Node 4700
+		At altitude 34
+	Node 3899 and Node 3900
+		At altitude 36
+	Node 27699 and Node 27700
+		At altitude 36
+	Node 5299 and Node 5300
+		At altitude 38
+	Node 5499 and Node 5500
+		At altitude 39
+	Node 24499 and Node 24500
+		At altitude 39
+	Node 30899 and Node 30900
+		At altitude 40
+	Node 9499 and Node 9500
+		At altitude 41
+	Node 26099 and Node 26100
+		At altitude 41
+	Node 3099 and Node 3100
+		At altitude 43
+	Node 25099 and Node 25100
+		At altitude 45
+	Node 35099 and Node 35100
+		At altitude 45
+	Node 27299 and Node 27300
+		At altitude 46
+	Node 17299 and Node 17300
+		At altitude 48
+	Node 23299 and Node 23300
+		At altitude 50
+	Node 19299 and Node 19300
+		At altitude 54
+	Node 2299 and Node 2300
+		At altitude 55
+	Node 35299 and Node 35300
+		At altitude 55
+	Node 6299 and Node 6300
+		At altitude 56
+	Node 22299 and Node 22300
+		At altitude 57
+	Node 38499 and Node 38500
+		At altitude 58
+	Node 17899 and Node 17900
+		At altitude 60
+	Node 23699 and Node 23700
+		At altitude 60
+	Node 30099 and Node 30100
+		At altitude 60
+	Node 3699 and Node 3700
+		At altitude 67
+	Node 22899 and Node 22900
+		At altitude 67
+	Node 27899 and Node 27900
+		At altitude 67
+	Node 14499 and Node 14500
+		At altitude 77
+	Node 11099 and Node 11100
+		At altitude 78
+	Node 15499 and Node 15500
+		At altitude 78
+	Node 26299 and Node 26300
+		At altitude 78
+	Node 30699 and Node 30700
+		At altitude 78
+	Node 30299 and Node 30300
+		At altitude 79
+	Node 29099 and Node 29100
+		At altitude 80
+	Node 32899 and Node 32900
+		At altitude 81
+	Node 24699 and Node 24700
+		At altitude 85
+	Node 4299 and Node 4300
+		At altitude 87
+	Node 7099 and Node 7100
+		At altitude 87
+	Node 34499 and Node 34500
+		At altitude 89
+	Node 899 and Node 900
+		At altitude 90
+	Node 36099 and Node 36100
+		At altitude 91
+	Node 34299 and Node 34300
+		At altitude 92
+	Node 25699 and Node 25700
+		At altitude 96
+	Node 8899 and Node 8900
+		At altitude 97
+	Node 9699 and Node 9700
+		At altitude 97
+	Node 99 and Node 100
+		At altitude 98
+	Node 15899 and Node 15900
+		At altitude 99
+	Node 2699 and Node 2700
+		At altitude 103
+	Node 1099 and Node 1100
+		At altitude 105
+	Node 12699 and Node 12700
+		At altitude 106
+	Node 21299 and Node 21300
+		At altitude 107
+	Node 11899 and Node 11900
+		At altitude 108
+	Node 38099 and Node 38100
+		At altitude 109
+	Node 38899 and Node 38900
+		At altitude 112
+	Node 3299 and Node 3300
+		At altitude 113
+	Node 37099 and Node 37100
+		At altitude 113
+	Node 20899 and Node 20900
+		At altitude 114
+	Node 35499 and Node 35500
+		At altitude 115
+	Node 11699 and Node 11700
+		At altitude 117
+	Node 18899 and Node 18900
+		At altitude 117
+	Node 20699 and Node 20700
+		At altitude 118
+	Node 499 and Node 500
+		At altitude 120
+	Node 8499 and Node 8500
+		At altitude 120
+	Node 24099 and Node 24100
+		At altitude 120
+	Node 29899 and Node 29900
+		At altitude 120
+	Node 33499 and Node 33500
+		At altitude 120
+	Node 36499 and Node 36500
+		At altitude 121
+	Node 10899 and Node 10900
+		At altitude 124
+	Node 18699 and Node 18700
+		At altitude 129
+	Node 14299 and Node 14300
+		At altitude 131
+	Node 18299 and Node 18300
+		At altitude 131
+	Node 25899 and Node 25900
+		At altitude 131
+	Node 7499 and Node 7500
+		At altitude 132
+	Node 12899 and Node 12900
+		At altitude 132
+	Node 35699 and Node 35700
+		At altitude 132
+	Node 33699 and Node 33700
+		At altitude 133
+	Node 28699 and Node 28700
+		At altitude 135
+	Node 28899 and Node 28900
+		At altitude 135
+	Node 11299 and Node 11300
+		At altitude 137
+	Node 39899 and Node 39900
+		At altitude 143
+	Node 14699 and Node 14700
+		At altitude 144
+	Node 29299 and Node 29300
+		At altitude 144
+	Node 22699 and Node 22700
+		At altitude 145
+	Node 12099 and Node 12100
+		At altitude 147
+	Node 9099 and Node 9100
+		At altitude 148
+	Node 2899 and Node 2900
+		At altitude 149
+	Node 36699 and Node 36700
+		At altitude 150
+	Node 4099 and Node 4100
+		At altitude 154
+	Node 19499 and Node 19500
+		At altitude 160
+	Node 26699 and Node 26700
+		At altitude 161
+	Node 18499 and Node 18500
+		At altitude 162
+	Node 21499 and Node 21500
+		At altitude 163
+	Node 34099 and Node 34100
+		At altitude 163
+	Node 26499 and Node 26500
+		At altitude 164
+	Node 39299 and Node 39300
+		At altitude 164
+	Node 31099 and Node 31100
+		At altitude 166
+	Node 6699 and Node 6700
+		At altitude 168
+	Node 25499 and Node 25500
+		At altitude 169
+	Node 32699 and Node 32700
+		At altitude 169
+	Node 24299 and Node 24300
+		At altitude 170
+	Node 8299 and Node 8300
+		At altitude 171
+	Node 1899 and Node 1900
+		At altitude 172
+	Node 4499 and Node 4500
+		At altitude 173
+	Node 5699 and Node 5700
+		At altitude 175
+	Node 36299 and Node 36300
+		At altitude 175
+	Node 6499 and Node 6500
+		At altitude 176
+	Node 31699 and Node 31700
+		At altitude 176
+	Node 39099 and Node 39100
+		At altitude 177
+	Node 22099 and Node 22100
+		At altitude 178
+	Node 28099 and Node 28100
+		At altitude 178
+	Node 32499 and Node 32500
+		At altitude 178
+	Node 32299 and Node 32300
+		At altitude 179
+	Node 13299 and Node 13300
+		At altitude 181
+	Node 21699 and Node 21700
+		At altitude 182
+	Node 25299 and Node 25300
+		At altitude 185
+	Node 37499 and Node 37500
+		At altitude 186
+	Node 1699 and Node 1700
+		At altitude 188
+	Node 29499 and Node 29500
+		At altitude 189
+	Node 15099 and Node 15100
+		At altitude 190
+	Node 17699 and Node 17700
+		At altitude 192
+	Node 35899 and Node 35900
+		At altitude 194
+	Node 28299 and Node 28300
+		At altitude 195
+	Node 27099 and Node 27100
+		At altitude 196
+	Node 16499 and Node 16500
+		At altitude 197
+	Node 23499 and Node 23500
+		At altitude 198
+	Node 33899 and Node 33900
+		At altitude 199
+	Node 13699 and Node 13700
+		At altitude 201
+	Node 10299 and Node 10300
+		At altitude 202
+	Node 20099 and Node 20100
+		At altitude 202
+	Node 14899 and Node 14900
+		At altitude 203
+	Node 18099 and Node 18100
+		At altitude 204
+	Node 31299 and Node 31300
+		At altitude 205
+	Node 16299 and Node 16300
+		At altitude 206
+	Node 37699 and Node 37700
+		At altitude 206
+	Node 12299 and Node 12300
+		At altitude 207
+	Node 37299 and Node 37300
+		At altitude 207
+	Node 14099 and Node 14100
+		At altitude 214
+	Node 7299 and Node 7300
+		At altitude 215
+	Node 9899 and Node 9900
+		At altitude 217
+	Node 39499 and Node 39500
+		At altitude 217
+	Node 7699 and Node 7700
+		At altitude 218
+	Node 26899 and Node 26900
+		At altitude 219
+	Node 13099 and Node 13100
+		At altitude 222
+	Node 4899 and Node 4900
+		At altitude 223
+	Node 5899 and Node 5900
+		At altitude 223
+	Node 23899 and Node 23900
+		At altitude 223
+	Node 9299 and Node 9300
+		At altitude 227
+	Node 20299 and Node 20300
+		At altitude 227
+	Node 8699 and Node 8700
+		At altitude 230
+	Node 10699 and Node 10700
+		At altitude 230
+	Node 17499 and Node 17500
+		At altitude 230
+	Node 699 and Node 700
+		At altitude 231
+	Node 38299 and Node 38300
+		At altitude 231
+	Node 16699 and Node 16700
+		At altitude 232
+	Node 33299 and Node 33300
+		At altitude 235
+	Node 20499 and Node 20500
+		At altitude 236
+	Node 1299 and Node 1300
+		At altitude 238
+	Node 33099 and Node 33100
+		At altitude 240
+	Node 28499 and Node 28500
+		At altitude 242
+	Node 31899 and Node 31900
+		At altitude 242
+	Node 24899 and Node 24900
+		At altitude 244
+	Node 10499 and Node 10500
+		At altitude 248
+	Node 21899 and Node 21900
+		At altitude 248
+	Node 5099 and Node 5100
+		At altitude 251
+	Node 13899 and Node 13900
+		At altitude 251
+	Node 10099 and Node 10100
+		At altitude 252
+	Node 12499 and Node 12500
+		At altitude 252
+	Node 1499 and Node 1500
+		At altitude 253
+	Node 38699 and Node 38700
+		At altitude 253
+	Node 7899 and Node 7900
+		At altitude 254
+Refactoring	Removing all nodes
+Block 1,0 (Final)

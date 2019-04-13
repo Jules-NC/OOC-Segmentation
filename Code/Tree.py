@@ -21,35 +21,44 @@ class Tree:
                 return node
         return None
 
-    def leaf_subtree(self, leaf_name):
-        ref = self.find_node(leaf_name)
-        # Create the sublist
-        boundary = []
-        while ref is not None:
-            boundary.append(ref.copy())
-            ref = ref.parent
-        for i in range(len(boundary)-1):
-            boundary[i].bind_parent(boundary[i+1])
-        return Tree(boundary)
+    def get_leaves(self, root):
+        if root.is_leaf():
+            return [root]
+        all_nodes = list()
+        all_nodes.append(self.get_leaves(root.left))
+        all_nodes.append(self.get_leaves(root.right))
+        return all_nodes
 
 
 
-    def leaves_subtree(self, leaves_name):
-        boundary = []
+    def subtree(self, leaves_name):
+        sub_tree = []
         for l in leaves_name:
             ref = self.find_node(l)
-            # Create the sublist
-            while ref is not None and ref not in boundary:
-                boundary.append(ref.copy())
+            while ref is not None and ref not in sub_tree:
+                sub_tree.append(ref)
                 ref = ref.parent
+        sub_tree.sort()
+        return sub_tree
+        
+    def boundary_tree(self, leaves_name):
+        boundary = []
+        for l in leaves_name:
+            # ref node
             ref = self.find_node(l)
-            while ref is not None:
-                if not ref.is_root():
-                    n = boundary.index(ref.copy())
-                    n_parent = boundary.index(ref.parent.copy())
-                    if n_parent is not None and boundary[n].parent is None:
-                        boundary[n].bind_parent(boundary[n_parent])
+            # child
+            ref_o = None
+            # for all
+            while ref is not None and ref.copy() not in boundary:
+                n = ref.copy()
+                if ref_o is not None:
+                    n.bind_child(ref_o)
+                boundary.append(n)
+                ref_o = n
                 ref = ref.parent
+            if ref is not None:
+                parent = boundary.index(ref.copy())
+                boundary[parent].bind_child(ref_o)
         boundary.sort()
         return Tree(boundary)
 

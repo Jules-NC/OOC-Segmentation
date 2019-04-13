@@ -1,7 +1,7 @@
 from Code.Node import *
 from Code.Tree import *
 from Code.GraphPrinter import *
-
+import time
 
 class Block:
 
@@ -11,8 +11,11 @@ class Block:
         self.file_name = file_name
         self.tree = graph.do_QBT(self.border)
         self.tree.root.call_all_attribute_update()
+        self.time_update_tree = 0
+        self.ws = []
 
     def update_tree(self, new_subtree, leaves):
+        start = time.time()
         new_list = self.tree.nodes
         for leaf in leaves:
             # search the leaf
@@ -54,35 +57,74 @@ class Block:
 
         new_list.sort()
         self.tree = Tree(new_list)
+        end = time.time()
+        self.time_update_tree = self.time_update_tree + (end - start)
+
+    def watershed(self, attribute='hauteur'):
+        for node in self.tree.nodes:
+            if node.is_leaf():
+                node.minima = 0
+        for node in self.tree.nodes:
+            nb = 0
+            flag = True
+            if node.left is not None:
+                m = node.left.minima
+                nb = nb + m
+                if m == 0:
+                    flag = False
+            if node.right is not None:
+                m = node.left.minima
+                nb = nb + m
+                if m == 0:
+                    flag = False
+            if flag:
+                self.ws.append(node)
+            if nb != 0:
+                node.minima = nb
+            else:
+                if node.is_root():
+                    node.minima = 1
+                else:
+                    if attribute == 'altitude':
+                        if node.altitude < node.parent.altitude:
+                            node.minima = 0
+                        else:
+                            node.minima = 1
+                    elif attribute == 'hauteur':
+                        if node.hauteur < node.parent.hauteur:
+                            node.minima = 0
+                        else:
+                            node.minima = 1
+
+                    elif attribute == 'aire':
+                        if node.aire < node.parent.aire:
+                            node.minima = 0
+                        else:
+                            node.minima = 1
 
     def remove_node(self, nodes):
         new_list = self.tree.nodes
         for node in nodes:
             selector_down = self.tree.find_node(node)
-            selector_up = selector_down.parent
-            selector_down.unbind_parent()
-            if selector_up is not None:
-                if selector_down.left is not None:
-                        selector_down.left.bind_parent(selector_up)
+            if selector_down is not None:
+                selector_up = selector_down.parent
+                selector_down.unbind_parent()
+                if selector_up is not None:
+                    if selector_down.left is not None:
+                            selector_down.left.bind_parent(selector_up)
 
+                    else:
+                            selector_down.right.bind_parent(selector_up)
                 else:
-                        selector_down.right.bind_parent(selector_up)
-            else:
-                if selector_down.left is not None:
-                    selector_down.unbind_child(selector_down.left)
-                if selector_down.right is not None:
-                    selector_down.unbind_child(selector_down.right)
-            new_list.remove(selector_down)
+                    if selector_down.left is not None:
+                        selector_down.unbind_child(selector_down.left)
+                    if selector_down.right is not None:
+                        selector_down.unbind_child(selector_down.right)
+                new_list.remove(selector_down)
 
-        new_list = self.tree.nodes
+        # new_list = self.tree.nodes
         new_list.sort()
         self.tree = Tree(new_list)
 
-    def block_print_tree(self):
-        print_tree(self.tree, "Data/" + self.file_name, "Block_" + str(self.index))
-
-    def get_subtree(self, leaves_name):
-        return self.tree.leaves_subtree(leaves_name)
-
     def get_border_tree(self, list_border):
-        return self.tree.leaves_subtree(list_border)
+        return self.tree.boundary_tree(list_border)
