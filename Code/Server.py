@@ -165,9 +165,23 @@ class Server:
         return Block(graph, border, (index_y*self.num_x_blocks+index_x), self.f)
 
     def calcule_LPE(self, ):
-
+        color = 0
+        double =[]
         for b in self.all_blocks:
             b.watershed()
-            for i in b.ws:
-                if i not in self.ws:
-                    self.ws.append(i)
+            for node in b.ws:
+                if node not in self.ws:
+                    self.ws.append(node)
+                    leaves = b.tree.get_leaves(node)
+                    for l in leaves:
+                        l.color = color
+                    node.color = color
+                else:
+                    index = self.ws.index(node)
+                    c = self.ws[index].color
+                    leaves = b.tree.get_leaves(node)
+                    for l in leaves:
+                        l.color = c
+                    node.color = c
+            color = color+1
+
