@@ -1,7 +1,7 @@
 from Code.Node import *
 from Code.Tree import *
 from Code.Block import *
-
+"""Server takes care of the merging between two blocks on a border """
 class Server:
     def __init__(self, bloc_1, bloc_2, edge, edge_altitude):
 
