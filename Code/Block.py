@@ -2,7 +2,7 @@ from Code.Node import *
 from Code.Tree import *
 from Code.GraphPrinter import *
 
-"""block class take care of the shifting between segments of the image""" 
+"""block class take care of the nodes in a block and its coordinates""" 
 class Block:
 
     """A block possess one tree and border coordinates """
