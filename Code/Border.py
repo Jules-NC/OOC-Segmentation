@@ -1,8 +1,9 @@
 from Code.Image import *
 from Code.Node import Node
 
-
+""" the border class takes care to translate position in the image into position in the block and otherwise""" 
 class Border:
+    """it takes 4 attributes , coordinates of the square delimiting a block"""
     def __init__(self, x1, y1, x2, y2):
         self.x1 = x1
         self.y1 = y1
@@ -19,6 +20,7 @@ class Border:
         """
         return ImageSize(self.x2 - self.x1 + 1, self.y2 - self.y1 + 1)
 
+    
     def int_coords_ibloc_to_iimage(self, int_name):
         img_size = self.to_im_size()
         n = img_size.len_x*img_size.len_y
@@ -38,6 +40,7 @@ class Border:
         y1 += self.y1
         return y1 * IMAGE.len_x + x1
 
+    """generate the leaves """
     def generate_leafs(self):
         """
         IS = b = ImageSize(4,2)
