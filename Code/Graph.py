@@ -2,7 +2,6 @@ import numpy as np
 from Code.Tree import *
 from Code.Border import *
 
-
 class Graph:
     def __init__(self, n_vertices=0, edges=None, weights=None):
         """
@@ -26,6 +25,7 @@ class Graph:
         # Sort directly after being created to not do this in the main code, because we don't want to modify a Graph.
         self.sort()
 
+        """sort every edges by weight to prepare for the QBT construction"""
     def sort(self):
         self.weights, self.edges = zip(*sorted(zip(self.weights, self.edges)))
 
@@ -42,6 +42,7 @@ class Graph:
             res += str(edge) + " : " + str(weight) + "\n"
         return res
 
+    """ construct a QBT tree """
     def do_QBT(self, border):
         self.sort()
         nodes = border.generate_leafs()
@@ -60,7 +61,7 @@ class Graph:
         res = Tree(nodes)
         return res
 
-
+""" generate a graph given a size of image """
 def generate_graph(imsize):
     X = imsize.len_x
     Y = imsize.len_y
