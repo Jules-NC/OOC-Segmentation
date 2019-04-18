@@ -2,13 +2,15 @@ from Code.Node import *
 from Code.Tree import *
 from Code.GraphPrinter import *
 
-
+"""block class take care of the shifting between segments of the image""" 
 class Block:
 
+    """A block possess one tree and border coordinates """
     def __init__(self, graph, border):
         self.border = border
         self.tree = graph.do_QBT(self.border)
 
+       """the tree is updated to accept the merging tree"""
     def update_tree(self, new_subtree, leaf):
         # search the leaf
         # compare
@@ -34,5 +36,6 @@ class Block:
         new_list.sort()
         self.tree = Tree(new_list)
 
+        """return the subtree of the leaf"""
     def get_subtree(self, leaf_name):
         return self.tree.subtree(leaf_name)
